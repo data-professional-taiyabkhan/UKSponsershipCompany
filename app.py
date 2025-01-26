@@ -1,0 +1,23 @@
+from flask import Flask, render_template
+import pandas as pd
+
+app = Flask(__name__)
+
+# Load the dataset
+df = pd.read_csv("cleaned_geocoded_data.csv")
+
+@app.route("/")
+def index():
+    # Prepare markers as a list of dictionaries
+    markers = [
+        {
+            "latitude": row["latitude"],
+            "longitude": row["longitude"],
+            "popup": f'{row["Organisation Name"]}, {row["Town/City"]}'
+        }
+        for _, row in df.iterrows()
+    ]
+    return render_template("map.html", markers=markers)
+
+if __name__ == "__main__":
+    app.run(debug=True)
