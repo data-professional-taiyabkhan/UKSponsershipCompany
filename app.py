@@ -1,3 +1,7 @@
+"""
+Flask application for visualizing geocoded organizational data on a map.
+"""
+
 from flask import Flask, render_template
 import pandas as pd
 
@@ -8,6 +12,9 @@ df = pd.read_csv("cleaned_geocoded_data.csv")
 
 @app.route("/")
 def index():
+    """
+    Renders the map with markers from the dataset.
+    """
     # Prepare markers as a list of dictionaries
     markers = [
         {
