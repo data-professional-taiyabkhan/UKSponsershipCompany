@@ -1,11 +1,4 @@
-# Flask for web development
-Flask==2.0.2
-
-# Requests for making HTTP requests
-requests==2.26.0
-
-# Pandas for data manipulation and analysis
-pandas==1.3.3
-
-# Gunicorn for running the application
-gunicorn==20.1.0
+Flask
+requests
+pandas
+gunicorn
