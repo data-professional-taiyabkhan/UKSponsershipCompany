@@ -18,7 +18,7 @@ def home():
 
 # Map Page Route
 @app.route('/map')
-def map():
+def index():
     """
     Renders the map with markers from the dataset.
     """
