@@ -1,5 +1,3 @@
-# UKSponsershipCompany
-
 # UK Sponsorship Companies Map
 
 An interactive web application that visualizes visa sponsorship companies across the UK. This tool is designed to help international students, recent graduates, and job seekers easily locate potential employers who offer visa sponsorship. Whether you're just starting your job search or looking to explore new opportunities, this map can help you discover that the right company might be right next door.
