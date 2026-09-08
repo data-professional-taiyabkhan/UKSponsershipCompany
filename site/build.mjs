@@ -131,19 +131,50 @@ async function buildRegister() {
   return { routes, ratings, orgCount: orgs.size, licenceRows: rows.length - 1, published };
 }
 
-/** Roll up the committed daily diffs into a "recently licensed" feed. */
+const RAW = "https://raw.githubusercontent.com/data-professional-taiyabkhan/UKSponsershipCompany/main";
+const API = "https://api.github.com/repos/data-professional-taiyabkhan/UKSponsershipCompany/contents/snapshots/diffs";
+
+/** Locate the daily diffs, whether or not the build is scoped to site/. */
+async function listDiffs() {
+  for (const dir of [
+    path.join(process.cwd(), "..", "snapshots", "diffs"),
+    path.join(process.cwd(), "snapshots", "diffs"),
+  ]) {
+    if (existsSync(dir)) {
+      const files = (await readdir(dir)).filter((f) => f.endsWith(".json")).sort();
+      return { kind: "fs", dir, files };
+    }
+  }
+  // Vercel may scope the checkout to the root directory, so fall back to the
+  // repository contents API rather than silently shipping an empty feed.
+  try {
+    const r = await fetch(API, { headers: { "user-agent": UA, accept: "application/vnd.github+json" } });
+    if (!r.ok) throw new Error(`${r.status}`);
+    const files = (await r.json())
+      .filter((e) => e.type === "file" && e.name.endsWith(".json"))
+      .map((e) => e.name).sort();
+    console.log(`diffs via GitHub API (${files.length} files)`);
+    return { kind: "http", files };
+  } catch (e) {
+    console.log(`no diffs available (${e.message}) — shipping an empty feed`);
+    return { kind: "none", files: [] };
+  }
+}
+
+/** Roll up the daily diffs into a "recently licensed" feed. */
 async function buildChanges() {
-  const dir = path.join(process.cwd(), "..", "snapshots", "diffs");
-  if (!existsSync(dir)) {
-    console.log("no diffs directory — skipping changes feed");
+  const src = await listDiffs();
+  if (!src.files.length) {
     await writeFile(path.join(OUT, "changes.json"),
       JSON.stringify({ days: [], added: [], removed: [], rating_changed: [] }));
     return;
   }
-  const files = (await readdir(dir)).filter((f) => f.endsWith(".json")).sort();
   const added = [], removed = [], ratingChanged = [], days = [];
-  for (const f of files.slice(-60)) {
-    const d = JSON.parse(await readFile(path.join(dir, f), "utf8"));
+  for (const f of src.files.slice(-60)) {
+    const text = src.kind === "fs"
+      ? await readFile(path.join(src.dir, f), "utf8")
+      : await fetch(`${RAW}/snapshots/diffs/${f}`, { headers: { "user-agent": UA } }).then((r) => r.text());
+    const d = JSON.parse(text);
     days.push({ date: d.date, ...d.counts });
     for (const r of d.added) added.push({ ...r, date: d.date });
     for (const r of d.removed) removed.push({ ...r, date: d.date });
