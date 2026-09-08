@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UK Sponsor Register — who actually sponsors</title>
+<meta name="description" content="The UK register of licensed visa sponsors, searchable, with the routes an outside applicant cannot use filtered out — and a daily record of who joined and left.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#EDF0F0; --surface:#FAFBFB; --surface-2:#E3E8E9; --raise:#fff;
+  --ink:#101E24; --ink-2:#31474E; --ink-3:#5C6E73;
+  --rule:#C9D3D5; --rule-soft:#DCE3E4;
+  --s1:#0089A7; --s2:#A87400; --signal:#A93318; --ok:#0F7A54;
+  --s1-fill:rgba(0,137,167,.13); --chip:#E1EBEE;
+  --shadow:0 1px 2px rgba(16,30,36,.06),0 8px 24px -16px rgba(16,30,36,.28);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0C1519; --surface:#131F24; --surface-2:#1B2A30; --raise:#18262C;
+  --ink:#E6EDEE; --ink-2:#AFC1C6; --ink-3:#87999E;
+  --rule:#2A3B42; --rule-soft:#1F2E34;
+  --s1:#2596B2; --s2:#B8892C; --signal:#D2664A; --ok:#3FA37B;
+  --s1-fill:rgba(37,150,178,.18); --chip:#1D2E35;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -16px rgba(0,0,0,.8);
+}}
+:root[data-theme="dark"]{
+  --paper:#0C1519; --surface:#131F24; --surface-2:#1B2A30; --raise:#18262C;
+  --ink:#E6EDEE; --ink-2:#AFC1C6; --ink-3:#87999E;
+  --rule:#2A3B42; --rule-soft:#1F2E34;
+  --s1:#2596B2; --s2:#B8892C; --signal:#D2664A; --ok:#3FA37B;
+  --s1-fill:rgba(37,150,178,.18); --chip:#1D2E35;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -16px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:16.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 26px}
+h1,h2{font-family:Newsreader,Georgia,serif;font-weight:500;margin:0;text-wrap:balance;letter-spacing:-.015em}
+h1{font-size:clamp(2.3rem,5.6vw,3.6rem);line-height:1.05}
+h2{font-size:clamp(1.5rem,3vw,2rem);line-height:1.16}
+p{margin:0 0 1.05em}
+a{color:var(--s1)}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+.num{font-variant-numeric:tabular-nums}
+
+nav{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--paper) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--rule-soft)}
+nav .wrap{display:flex;align-items:center;gap:22px;height:52px}
+nav b{font-family:"IBM Plex Mono",monospace;font-size:.76rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-2);font-weight:500;margin-right:auto}
+nav a{font-size:.87rem;color:var(--ink-2);text-decoration:none;white-space:nowrap}
+nav a:hover{color:var(--s1)}
+
+header{padding:60px 0 44px;border-bottom:2px solid var(--ink)}
+.kicker{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:20px}
+.stand{font-family:Newsreader,Georgia,serif;font-size:1.3rem;line-height:1.48;
+  color:var(--ink-2);max-width:46ch;margin:20px 0 0}
+.prov{display:flex;flex-wrap:wrap;gap:7px 24px;margin-top:28px;
+  font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--ink-3)}
+.prov b{color:var(--ink-2);font-weight:500}
+
+section{padding:52px 0;border-bottom:1px solid var(--rule-soft)}
+.tag{display:inline-flex;align-items:center;gap:8px;background:var(--chip);border-radius:3px;
+  padding:4px 9px;font-family:"IBM Plex Mono",monospace;font-size:.7rem;
+  letter-spacing:.05em;color:var(--ink-2);margin-bottom:14px}
+.tag i{width:5px;height:5px;border-radius:50%;background:var(--s1);font-style:normal}
+.lede{font-size:1.05rem;color:var(--ink-2);max-width:62ch}
+.col{max-width:660px}
+
+.hero{background:var(--surface);border:1px solid var(--rule);border-radius:6px;
+  padding:34px 32px;margin:30px 0;box-shadow:var(--shadow)}
+.hrow{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px 42px}
+.big{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
+  font-size:clamp(2.2rem,6vw,3.6rem);font-weight:500;line-height:.94;letter-spacing:-.03em}
+.big.a{color:var(--s1)} .big.b{color:var(--s2)}
+.blab{font-size:.81rem;color:var(--ink-3);margin-top:10px;max-width:22ch;line-height:1.4}
+.eq{font-family:Newsreader,serif;font-size:1.9rem;color:var(--ink-3);padding-bottom:12px}
+.hout{margin-top:24px;padding-top:20px;border-top:1px solid var(--rule-soft);
+  color:var(--ink-2);max-width:60ch}
+.hout b{color:var(--ink)}
+
+figure{margin:30px 0 0}
+.fh{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:6px}
+.ft{font-weight:600;font-size:.96rem}
+.fs{font-size:.81rem;color:var(--ink-3)}
+.legend{display:flex;gap:18px;margin:10px 0 4px;font-size:.81rem;color:var(--ink-2)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:6px;
+  vertical-align:-1px;font-style:normal}
+.cbox{background:var(--surface);border:1px solid var(--rule);border-radius:6px;
+  padding:16px 10px 8px;overflow-x:auto}
+svg{display:block;width:100%;height:auto;min-width:520px}
+.gl{stroke:var(--rule-soft);stroke-width:1}
+.axl{font-family:"IBM Plex Mono",monospace;font-size:11px;fill:var(--ink-3)}
+.dlab{font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:500}
+figcaption{font-size:.78rem;color:var(--ink-3);margin-top:10px;line-height:1.5}
+
+/* ---- search tool ---- */
+.tool{background:var(--surface);border:1px solid var(--rule);border-radius:6px;
+  box-shadow:var(--shadow);margin-top:26px;overflow:hidden}
+.controls{display:flex;flex-wrap:wrap;gap:12px;padding:18px 20px;
+  border-bottom:1px solid var(--rule-soft);align-items:flex-end}
+.fld{display:flex;flex-direction:column;gap:5px;min-width:0}
+.fld label{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink-3)}
+.fld input,.fld select{font:inherit;font-size:.92rem;color:var(--ink);background:var(--raise);
+  border:1px solid var(--rule);border-radius:4px;padding:8px 10px;min-width:0}
+.fld input{width:min(280px,60vw)}
+.fld select{width:min(260px,60vw)}
+.fld input:focus,.fld select:focus{outline:2px solid var(--s1);outline-offset:1px;border-color:var(--s1)}
+.chk{display:flex;align-items:center;gap:8px;font-size:.87rem;color:var(--ink-2);
+  padding-bottom:9px;cursor:pointer}
+.chk input{width:15px;height:15px;accent-color:var(--s1);cursor:pointer}
+.status{padding:11px 20px;font-family:"IBM Plex Mono",monospace;font-size:.76rem;
+  color:var(--ink-3);border-bottom:1px solid var(--rule-soft);background:var(--surface-2)}
+.status b{color:var(--ink);font-weight:600}
+.tscroll{max-height:560px;overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+thead th{position:sticky;top:0;background:var(--surface);z-index:2;text-align:left;
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink-3);font-weight:500;
+  padding:9px 14px;border-bottom:1px solid var(--rule)}
+tbody td{padding:9px 14px;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+tbody tr:hover{background:var(--surface-2)}
+.orgname{font-weight:600;color:var(--ink)}
+.town{color:var(--ink-2);white-space:nowrap}
+.pill{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:.68rem;
+  padding:2px 7px;border-radius:3px;background:var(--chip);color:var(--ink-2);
+  margin:2px 4px 2px 0;white-space:nowrap}
+.pill.no{background:transparent;border:1px dashed var(--rule);color:var(--ink-3)}
+.pill.b{background:rgba(169,51,24,.12);color:var(--signal);font-weight:600}
+.empty{padding:40px 20px;text-align:center;color:var(--ink-3)}
+
+.feed{display:grid;gap:0;margin-top:24px;border-top:1px solid var(--rule)}
+.frow{display:grid;grid-template-columns:minmax(0,1fr);gap:2px;padding:13px 0;
+  border-bottom:1px solid var(--rule-soft)}
+@media(min-width:640px){.frow{grid-template-columns:104px minmax(0,1fr) auto;gap:18px;align-items:baseline}}
+.fdate{font-family:"IBM Plex Mono",monospace;font-size:.75rem;color:var(--ink-3)}
+.fname{font-weight:600}
+.ftown{font-size:.85rem;color:var(--ink-2)}
+
+.warn{border-left:3px solid var(--signal);background:var(--surface);padding:18px 20px;
+  margin:26px 0;border-radius:0 5px 5px 0}
+.warn h3{color:var(--signal);font-size:.8rem;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;margin:0 0 8px}
+.warn p{font-size:.93rem;color:var(--ink-2);margin-bottom:.6em}
+.warn p:last-child{margin-bottom:0}
+ul.tight{margin:.4em 0 1.1em;padding-left:1.1em;color:var(--ink-2)}
+ul.tight li{margin-bottom:.4em}
+ul.tight li::marker{color:var(--ink-3)}
+footer{padding:40px 0 70px;font-size:.81rem;color:var(--ink-3);max-width:74ch}
+footer a{color:var(--ink-2)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <b>UK Sponsor Register</b>
+  <a href="#finding">The finding</a>
+  <a href="#search">Search sponsors</a>
+  <a href="#new">Newly licensed</a>
+  <a href="#limits">Limits</a>
+</div></nav>
+
+<div class="wrap">
+
+<header>
+  <div class="kicker">Home Office open data · rebuilt September 2026</div>
+  <h1>The register is<br>not the market</h1>
+  <p class="stand">122,000 UK companies hold a Skilled Worker licence. Between them they made about 87,000 sponsored hires last year. Most licensed sponsors sponsor nobody.</p>
+  <div class="prov">
+    <span><b>Register</b> <span id="p-reg">loading…</span></span>
+    <span><b>Visa stats</b> YE June 2026</span>
+    <span><b>Licence</b> OGL v3.0</span>
+  </div>
+</header>
+
+<section id="finding">
+  <div class="tag"><i></i>SP register × Occ_D02 × Exe_D02</div>
+  <h2>A licence is not a job</h2>
+  <p class="lede" style="margin-top:16px">Everyone downloads the sponsor register, sees a hundred thousand companies, and starts mass-applying. Put the register next to the actual visa grants and the arithmetic is blunt.</p>
+
+  <div class="hero">
+    <div class="hrow">
+      <div><div class="big a num">121,929</div><div class="blab">organisations licensed to sponsor Skilled Workers</div></div>
+      <div class="eq">÷</div>
+      <div><div class="big b num">86,750</div><div class="blab">new sponsored hires in 2025, from overseas <em>and</em> from inside the UK</div></div>
+      <div class="eq">=</div>
+      <div><div class="big num">0.71</div><div class="blab">sponsored hires per licensed sponsor, per year</div></div>
+    </div>
+    <div class="hout">And that is the <b>mean</b>. A few hundred NHS trusts, consultancies and banks sponsor dozens each, so the <b>median licensed sponsor sponsors nobody at all</b> in a given year. The register tells you who <b>may</b> sponsor. It never tells you who <b>does</b>.</div>
+  </div>
+
+  <figure>
+    <div class="fh"><span class="ft">Sponsored work visas granted from overseas</span>
+      <span class="fs">rolling 12 months · Skilled Worker + Health &amp; Care</span></div>
+    <div class="cbox"><svg id="c1" viewBox="0 0 920 350" role="img"
+      aria-label="Rolling 12-month grants peak at 209,846 in the year to Q4 2023 then fall to 33,941 by the year to Q2 2026."></svg></div>
+    <figcaption>Home Office <span class="mono">Occ_D02</span>, year ending June 2026. Dashed lines mark the two rule changes that bracket the fall: the care-worker dependant ban and £38,700 threshold (Mar–Apr 2024), and the RQF 6 skill floor, £41,700 threshold and end of overseas care recruitment (22 July 2025).</figcaption>
+  </figure>
+
+  <figure>
+    <div class="fh"><span class="ft">Two ways into a sponsored job</span>
+      <span class="fs">new Skilled Worker &amp; Health and Care sponsorships</span></div>
+    <div class="legend">
+      <span><i style="background:var(--s1)"></i>Applied from overseas</span>
+      <span><i style="background:var(--s2)"></i>Switched from inside the UK</span></div>
+    <div class="cbox"><svg id="c2" viewBox="0 0 920 350" role="img"
+      aria-label="Overseas grants fall from 209,846 in 2023 to 45,388 in 2025 while in-country switches rise from 13,878 in 2021 to 41,362, nearly converging."></svg></div>
+    <figcaption>Overseas from <span class="mono">Occ_D02</span>; in-country from <span class="mono">Exe_D02</span>, counting only main applicants whose previous leave was <em>not</em> already a work route — genuinely new sponsorships, not renewals. In 2021 the overseas channel was 4.8× the in-country one. In 2025 it was 1.1×. Switches from the Graduate route alone went from 187 in 2021 to 29,219 in 2025.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="fh"><span class="ft">IT professionals sponsored from overseas</span>
+      <span class="fs">SOC 213 · bars = grants · label = share of all sponsored work</span></div>
+    <div class="cbox"><svg id="c3" viewBox="0 0 920 330" role="img"
+      aria-label="IT grants fall from 15,923 in 2022 to 5,005 in 2025 while IT's share of all sponsored grants rises from 4.3 percent in 2023 to 14.1 percent in 2026."></svg></div>
+    <figcaption>2026 covers Q1–Q2 only. IT is now the single largest sponsored occupation entering the UK for the first time — not because tech hiring grew, but because care work collapsed around it (SOC 613: 107,847 grants in 2023, 3,167 in 2025).</figcaption>
+  </figure>
+</section>
+
+<section id="search">
+  <div class="tag"><i></i>Register of licensed sponsors: workers</div>
+  <h2>Search the register</h2>
+  <p class="lede" style="margin-top:16px">Every licensed sponsor, grouped so an employer appears once with all its routes. Routes an outside applicant cannot apply to are marked — intra-company transfers move an employer's existing overseas staff and are not open jobs.</p>
+
+  <div class="tool">
+    <div class="controls">
+      <div class="fld"><label for="q">Employer or town</label>
+        <input id="q" type="search" placeholder="e.g. Monzo, or Reading" autocomplete="off"></div>
+      <div class="fld"><label for="route">Route</label><select id="route"></select></div>
+      <div class="fld"><label for="rating">Rating</label><select id="rating">
+        <option value="">Any</option><option value="A">A rating only</option>
+        <option value="B">B rating only</option></select></div>
+      <label class="chk"><input type="checkbox" id="external" checked>
+        <span>Only routes I can apply to</span></label>
+    </div>
+    <div class="status" id="status">Loading the register…</div>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>Employer</th><th>Town</th><th>Routes</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="new">
+  <div class="tag"><i></i>daily snapshot diff</div>
+  <h2>Newly licensed</h2>
+  <p class="lede" style="margin-top:16px">There is no official archive of the register — the asset URL changes on every publish and nobody publishes history. This site keeps its own daily snapshots and diffs them. A company that has just paid for a licence is a company that intends to use it, which makes this the highest-signal list in the whole dataset.</p>
+  <div id="feed-summary" class="status" style="border:1px solid var(--rule);border-radius:6px;margin-top:22px"></div>
+  <div class="feed" id="feed"></div>
+  <p class="fs" id="feed-more" style="margin-top:14px"></p>
+</section>
+
+<section id="limits">
+  <div class="tag"><i></i>read this before trusting anything here</div>
+  <h2>What this data cannot tell you</h2>
+  <div class="col">
+  <ul class="tight" style="margin-top:16px">
+    <li><strong>No per-sponsor volumes exist.</strong> The certificate-of-sponsorship datasets were discontinued after year-ending December 2024 and were only ever aggregate. Nobody publishes how many people a named company sponsored. Any product showing you a per-company count is guessing.</li>
+    <li><strong>A licence says capability, not intent.</strong> A company can hold one for years and never use it.</li>
+    <li><strong>The register carries no company number</strong> — only name and town — so matching it to Companies House is inherently fuzzy.</li>
+  </ul>
+  </div>
+  <div class="warn">
+    <h3>Removed is not revoked</h3>
+    <p>When a sponsor disappears from the register it can mean a voluntary surrender, an expiry, a merger, or simply a rename. The Home Office publishes no revocations list for the worker routes — only aggregate counts of action taken against sponsors.</p>
+    <p>So departures are labelled <strong>removed from register</strong> here and nowhere is a revocation implied. Stating otherwise about a named company would be defamatory if wrong.</p>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Sources.</strong> All Open Government Licence v3.0, © Crown copyright.
+    <a href="https://www.gov.uk/government/publications/register-of-licensed-sponsors-workers">Register of licensed sponsors: workers</a> ·
+    <a href="https://www.gov.uk/government/statistical-data-sets/immigration-system-statistics-data-tables">Immigration system statistics</a>, year ending June 2026 (<span class="mono">Occ_D02</span>, <span class="mono">Exe_D01</span>, <span class="mono">Exe_D02</span>).
+    Register data is fetched fresh at each deploy; snapshot history is kept in the
+    <a href="https://github.com/data-professional-taiyabkhan/UKSponsershipCompany">project repository</a>.</p>
+  <p>Built by Mohammad Taiyab Khan. This is an independent analysis of public data and is not affiliated with the Home Office. Nothing here is immigration advice.</p>
+</footer>
+
+</div>
+
+<script>
+const $=s=>document.querySelector(s), NS='http://www.w3.org/2000/svg';
+const fmt=n=>n.toLocaleString('en-GB');
+const tok=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e}
+
+/* ---------------- charts (static, render immediately) ---------------- */
+(function(){
+  const q=["2021 Q4","2022 Q1","2022 Q2","2022 Q3","2022 Q4","2023 Q1","2023 Q2","2023 Q3","2023 Q4","2024 Q1","2024 Q2","2024 Q3","2024 Q4","2025 Q1","2025 Q2","2025 Q3","2025 Q4","2026 Q1","2026 Q2"];
+  const v=[66898,80522,98283,121487,141825,169169,189097,208062,209846,184108,159685,115803,84585,71059,58596,51648,45388,39876,33941];
+  const s=$('#c1'),L=66,R=902,T=34,B=292,MAX=220000;
+  const x=i=>L+i*(R-L)/(v.length-1), y=n=>B-(n/MAX)*(B-T);
+  [0,50000,100000,150000,200000].forEach(g=>{s.appendChild(el('line',{x1:L,x2:R,y1:y(g),y2:y(g),class:'gl'}));
+    const t=el('text',{x:L-10,y:y(g)+4,class:'axl','text-anchor':'end'});t.textContent=g?fmt(g/1000)+'k':'0';s.appendChild(t)});
+  [[9,'Mar–Apr 2024'],[15,'22 Jul 2025']].forEach(([i,lab])=>{
+    s.appendChild(el('line',{x1:x(i),x2:x(i),y1:T-4,y2:B,stroke:tok('--ink-3'),'stroke-width':1,'stroke-dasharray':'3 4','stroke-opacity':'.65'}));
+    const t=el('text',{x:x(i)+6,y:T+8,class:'axl',fill:tok('--ink-3')});t.textContent=lab;s.appendChild(t)});
+  const pts=v.map((n,i)=>[x(i),y(n)]);
+  s.appendChild(el('path',{d:`M${L},${B} `+pts.map(p=>`L${p[0]},${p[1]}`).join(' ')+` L${R},${B} Z`,fill:tok('--s1-fill'),stroke:'none'}));
+  s.appendChild(el('path',{d:'M'+pts.map(p=>p.join(',')).join(' L'),fill:'none',stroke:tok('--s1'),'stroke-width':2.5,'stroke-linejoin':'round','stroke-linecap':'round'}));
+  [[8,'209,846'],[18,'33,941']].forEach(([i,lab])=>{
+    s.appendChild(el('circle',{cx:x(i),cy:y(v[i]),r:5,fill:tok('--s1'),stroke:tok('--surface'),'stroke-width':2}));
+    const t=el('text',{x:x(i)-8,y:y(v[i])-14,class:'dlab',fill:tok('--s1'),'text-anchor':'end'});t.textContent=lab;s.appendChild(t)});
+  ['2021 Q4','2022 Q4','2023 Q4','2024 Q4','2025 Q4','2026 Q2'].forEach(lb=>{
+    const i=q.indexOf(lb);const t=el('text',{x:x(i),y:B+22,class:'axl','text-anchor':'middle'});t.textContent=lb;s.appendChild(t)});
+  const c=el('text',{x:L,y:326,class:'axl',fill:tok('--ink-3')});c.textContent='year ending →';s.appendChild(c);
+})();
+(function(){
+  const yrs=[2021,2022,2023,2024,2025], A=[66898,141825,209846,84585,45388], Bv=[13878,43946,39348,47104,41362];
+  const s=$('#c2'),L=66,R=902,T=40,B=288,MAX=220000;
+  const step=(R-L)/yrs.length, bw=Math.min(58,step*0.3), gap=8, y=n=>B-(n/MAX)*(B-T);
+  [0,50000,100000,150000,200000].forEach(g=>{s.appendChild(el('line',{x1:L,x2:R,y1:y(g),y2:y(g),class:'gl'}));
+    const t=el('text',{x:L-10,y:y(g)+4,class:'axl','text-anchor':'end'});t.textContent=g?fmt(g/1000)+'k':'0';s.appendChild(t)});
+  yrs.forEach((yr,i)=>{const cx=L+step*i+step/2;
+    [[A[i],tok('--s1'),-1],[Bv[i],tok('--s2'),1]].forEach(([val,col,side])=>{
+      const bx=cx+side*(gap/2)+(side<0?-bw:0), by=y(val), bh=B-by;
+      s.appendChild(el('rect',{x:bx,y:by,width:bw,height:Math.max(bh,2),fill:col,rx:4,ry:4}));
+      s.appendChild(el('rect',{x:bx,y:B-Math.min(bh,5),width:bw,height:Math.min(bh,5),fill:col}));
+      const t=el('text',{x:bx+bw/2,y:by-9,class:'dlab',fill:col,'text-anchor':'middle'});t.textContent=fmt(val);s.appendChild(t)});
+    const t=el('text',{x:cx,y:B+23,class:'axl','text-anchor':'middle'});t.textContent=yr;s.appendChild(t)});
+  const r=el('text',{x:R,y:326,class:'axl',fill:tok('--ink-3'),'text-anchor':'end'});
+  r.textContent='ratio 2021: 4.8×  →  2025: 1.1×';s.appendChild(r);
+})();
+(function(){
+  const yrs=['2021','2022','2023','2024','2025','2026'], v=[9289,15923,9023,6266,5005,2075], sh=[13.9,11.2,4.3,7.4,11.0,14.1];
+  const s=$('#c3'),L=66,R=902,T=54,B=262,MAX=17000;
+  const step=(R-L)/yrs.length, bw=Math.min(74,step*0.5), y=n=>B-(n/MAX)*(B-T);
+  [0,5000,10000,15000].forEach(g=>{s.appendChild(el('line',{x1:L,x2:R,y1:y(g),y2:y(g),class:'gl'}));
+    const t=el('text',{x:L-10,y:y(g)+4,class:'axl','text-anchor':'end'});t.textContent=g?fmt(g/1000)+'k':'0';s.appendChild(t)});
+  yrs.forEach((yr,i)=>{const cx=L+step*i+step/2, bx=cx-bw/2, by=y(v[i]), bh=B-by;
+    s.appendChild(el('rect',{x:bx,y:by,width:bw,height:bh,fill:tok('--s1'),rx:4,ry:4}));
+    s.appendChild(el('rect',{x:bx,y:B-5,width:bw,height:5,fill:tok('--s1')}));
+    const n=el('text',{x:cx,y:by-11,class:'dlab',fill:tok('--ink-2'),'text-anchor':'middle'});n.textContent=fmt(v[i]);s.appendChild(n);
+    const p=el('text',{x:cx,y:by-30,class:'dlab',fill:tok('--s2'),'text-anchor':'middle','font-weight':'600','font-size':'14'});p.textContent=sh[i]+'%';s.appendChild(p);
+    const t=el('text',{x:cx,y:B+23,class:'axl','text-anchor':'middle'});t.textContent=yr+(yr==='2026'?' H1':'');s.appendChild(t)});
+  const k=el('text',{x:L,y:26,class:'axl',fill:tok('--s2'),'font-weight':'600'});k.textContent='% = IT share of all sponsored work grants';s.appendChild(k);
+  const k2=el('text',{x:L,y:44,class:'axl',fill:tok('--ink-3')});k2.textContent='bars = IT grants';s.appendChild(k2);
+})();
+
+/* ---------------- register search ---------------- */
+let DATA=null, ORGS=[], LIMIT=250;
+
+function parseRows(payload){
+  const out=[], lines=payload.rows.split('\n');
+  for(let i=0;i<lines.length;i++){
+    const p=lines[i].split('\t');
+    if(p.length<5) continue;
+    out.push({n:p[0], t:p[1], c:p[2],
+      g:p[3]?p[3].split(',').map(Number):[],
+      r:p[4]?p[4].split(',').map(Number):[],
+      s:(p[0]+' '+p[1]).toLowerCase()});
+  }
+  return out;
+}
+
+function render(){
+  if(!DATA) return;
+  const q=$('#q').value.trim().toLowerCase();
+  const routeSel=$('#route').value, ratingSel=$('#rating').value;
+  const extOnly=$('#external').checked;
+  const nonExt=DATA.non_external;
+  const rIdx=routeSel===''?-1:Number(routeSel);
+
+  const hits=[];
+  for(const o of ORGS){
+    if(q && !o.s.includes(q)) continue;
+    if(rIdx>=0 && !o.r.includes(rIdx)) continue;
+    if(extOnly && !o.r.some(i=>!nonExt[i])) continue;
+    if(ratingSel){
+      const has=o.g.some(i=>{const s=DATA.ratings[i]||'';
+        return ratingSel==='A' ? /\(A/.test(s) : /\(B rating\)/.test(s);});
+      if(!has) continue;
+    }
+    hits.push(o);
+  }
+
+  const tb=$('#rows'); tb.textContent='';
+  if(!hits.length){
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td colspan="3" class="empty">No sponsors match those filters.</td>';
+    tb.appendChild(tr);
+  } else {
+    const frag=document.createDocumentFragment();
+    for(const o of hits.slice(0,LIMIT)){
+      const tr=document.createElement('tr');
+      const td1=document.createElement('td');
+      td1.className='orgname'; td1.textContent=o.n;
+      const td2=document.createElement('td');
+      td2.className='town'; td2.textContent=o.t + (o.c?' · '+o.c:'');
+      const td3=document.createElement('td');
+      for(const i of o.r){
+        const sp=document.createElement('span');
+        sp.className='pill'+(nonExt[i]?' no':'');
+        sp.textContent=DATA.routes[i];
+        if(nonExt[i]) sp.title='Intra-company or closed route — not open to an outside applicant';
+        td3.appendChild(sp);
+      }
+      if(o.g.some(i=>/\(B rating\)/.test(DATA.ratings[i]||''))){
+        const sp=document.createElement('span'); sp.className='pill b';
+        sp.textContent='B rating'; sp.title='Sponsor is on a Home Office action plan';
+        td3.appendChild(sp);
+      }
+      tr.append(td1,td2,td3); frag.appendChild(tr);
+    }
+    tb.appendChild(frag);
+  }
+
+  const shown=Math.min(hits.length,LIMIT);
+  $('#status').innerHTML =
+    `<b>${fmt(hits.length)}</b> employers match · showing ${fmt(shown)}` +
+    (hits.length>LIMIT?' · refine to see more':'') +
+    ` · <b>${fmt(ORGS.length)}</b> on the register`;
+}
+
+async function loadRegister(){
+  try{
+    const [reg,meta]=await Promise.all([
+      fetch('data/sponsors.json').then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}),
+      fetch('data/meta.json').then(r=>r.ok?r.json():null).catch(()=>null),
+    ]);
+    DATA=reg; ORGS=parseRows(reg);
+
+    const sel=$('#route');
+    const order=[...reg.routes.keys()].sort((a,b)=>reg.routes[a].localeCompare(reg.routes[b]));
+    sel.innerHTML='<option value="">Any route</option>';
+    for(const i of order){
+      const o=document.createElement('option');
+      o.value=i; o.textContent=reg.routes[i]+(reg.non_external[i]?' (intra-company)':'');
+      sel.appendChild(o);
+    }
+    const sw=reg.routes.indexOf('Skilled Worker');
+    if(sw>=0) sel.value=String(sw);
+
+    const d=(meta?.gov_published_at||reg.gov_published_at||'').slice(0,10);
+    $('#p-reg').textContent = d ? `${d} · ${fmt(reg.licence_rows)} licences` : `${fmt(reg.licence_rows)} licences`;
+
+    ['#q','#route','#rating','#external'].forEach(s=>{
+      $(s).addEventListener('input',render); $(s).addEventListener('change',render);
+    });
+    render();
+  }catch(e){
+    $('#status').textContent='Could not load the register data ('+e.message+'). It is rebuilt on each deploy.';
+  }
+}
+
+async function loadChanges(){
+  try{
+    const c=await fetch('data/changes.json').then(r=>r.json());
+    const sum=$('#feed-summary'), feed=$('#feed');
+    if(!c.days?.length){
+      sum.textContent='No diffs recorded yet — the daily snapshot starts building history from its first run.';
+      return;
+    }
+    const tot=c.days.reduce((a,d)=>({a:a.a+d.added,r:a.r+d.removed,c:a.c+d.rating_changed}),{a:0,r:0,c:0});
+    const from=c.days[0].date, to=c.days[c.days.length-1].date;
+    sum.innerHTML=`<b>${fmt(tot.a)}</b> licences added · <b>${fmt(tot.r)}</b> removed · `+
+      `<b>${fmt(tot.c)}</b> rating changes · ${from} to ${to}`;
+    const rows=c.added.slice().reverse().slice(0,60);
+    const frag=document.createDocumentFragment();
+    for(const r of rows){
+      const d=document.createElement('div'); d.className='frow';
+      d.innerHTML=`<div class="fdate">${r.date}</div>`+
+        `<div><div class="fname"></div><div class="ftown"></div></div>`+
+        `<div><span class="pill"></span></div>`;
+      d.querySelector('.fname').textContent=r.name;
+      d.querySelector('.ftown').textContent=r.town+(r.county?' · '+r.county:'');
+      d.querySelector('.pill').textContent=r.route;
+      frag.appendChild(d);
+    }
+    feed.appendChild(frag);
+    $('#feed-more').textContent=
+      `Showing the ${rows.length} most recent additions of ${fmt(c.added.length)} recorded. `+
+      `${fmt(tot.r)} licences were removed over the same period — see the note below on why that is not a revocation.`;
+  }catch(e){
+    $('#feed-summary').textContent='Change feed unavailable.';
+  }
+}
+
+loadRegister(); loadChanges();
+</script>
+</body>
+</html>

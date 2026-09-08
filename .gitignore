@@ -6,7 +6,13 @@ data/*.csv
 # NB cleaned_geocoded_data.csv is already tracked and stays tracked - it is the
 # reusable Companies House address match, not a build artefact.
 
+# The site's data layer is rebuilt from gov.uk on every deploy, so it is never
+# committed - that keeps a 6 MB file that changes daily out of git history.
+site/public/data/
+node_modules/
+
 __pycache__/
 *.pyc
 .venv/
 .env
+.vercel
