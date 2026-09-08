@@ -7,6 +7,7 @@
  * that changes on every publish, so it can never be hardcoded.
  */
 import { mkdir, writeFile, readFile, readdir } from "node:fs/promises";
+import { gunzipSync } from "node:zlib";
 import { existsSync } from "node:fs";
 import path from "node:path";
 
@@ -103,16 +104,49 @@ async function buildRegister() {
 
   const routes = [...routeIdx.keys()], ratings = [...ratingIdx.keys()];
 
+  // ---- attach coordinates -------------------------------------------------
+  // The register has no coordinates and no postcode. cleaned_geocoded_data.csv
+  // supplies a Companies House registered address for ~110k sponsors; where an
+  // org is not in it we fall back to the median centroid of its town, and mark
+  // the difference so the map never implies precision it does not have.
+  const geoDir = path.join(process.cwd(), "geodata");
+  const orgGeo = new Map(), townGeo = new Map();
+  try {
+    for (const line of gunzipSync(await readFile(path.join(geoDir, "orgs.tsv.gz"))).toString("utf8").split("\n")) {
+      const [nk, tk, lat, lng, pc] = line.split("\t");
+      if (nk) orgGeo.set(nk + "|" + tk, [lat, lng, pc || ""]);
+    }
+    for (const line of gunzipSync(await readFile(path.join(geoDir, "towns.tsv.gz"))).toString("utf8").split("\n")) {
+      const [tk, lat, lng] = line.split("\t");
+      if (tk) townGeo.set(tk, [lat, lng]);
+    }
+  } catch (e) {
+    console.log(`geo lookup unavailable (${e.message}) — map will be empty`);
+  }
+
+  let exact = 0, approx = 0, none = 0;
+
   // Tab-separated blob: far smaller than an array of objects, and parsing
   // 127k lines with split() is a few milliseconds in the browser.
   const lines = [];
-  for (const o of orgs.values()) {
+  for (const [key, o] of orgs) {
+    const tk = key.split("|")[1];
+    let lat = "", lng = "", pc = "", prec = 0;
+    const hit = orgGeo.get(key);
+    if (hit) { [lat, lng, pc] = hit; prec = 2; exact++; }
+    else {
+      const t = townGeo.get(tk);
+      if (t) { [lat, lng] = t; prec = 1; approx++; } else none++;
+    }
     lines.push([
       o.name, o.town, o.county,
       [...o.ratings].join(","), [...o.routes].join(","),
+      lat, lng, pc, prec,
     ].join("\t"));
   }
   lines.sort((a, b) => a.localeCompare(b));
+  console.log(`geo: ${exact.toLocaleString()} exact address · ` +
+              `${approx.toLocaleString()} town centroid · ${none.toLocaleString()} unplaced`);
 
   const payload = {
     generated: new Date().toISOString(),
@@ -122,13 +156,14 @@ async function buildRegister() {
     non_external: routes.map((r) => (NON_EXTERNAL.has(r) ? 1 : 0)),
     licence_rows: rows.length - 1,
     org_count: orgs.size,
+    geo: { exact, approx, none },
     rows: lines.join("\n"),
   };
   await writeFile(path.join(OUT, "sponsors.json"), JSON.stringify(payload));
   console.log(`sponsors.json — ${orgs.size.toLocaleString()} orgs, ` +
               `${(rows.length - 1).toLocaleString()} licence rows, ` +
               `${(JSON.stringify(payload).length / 1e6).toFixed(1)} MB raw`);
-  return { routes, ratings, orgCount: orgs.size, licenceRows: rows.length - 1, published };
+  return { routes, ratings, orgCount: orgs.size, licenceRows: rows.length - 1, published, geo: { exact, approx, none } };
 }
 
 const RAW = "https://raw.githubusercontent.com/data-professional-taiyabkhan/UKSponsershipCompany/main";
@@ -194,5 +229,6 @@ await writeFile(path.join(OUT, "meta.json"), JSON.stringify({
   org_count: reg.orgCount,
   licence_rows: reg.licenceRows,
   gov_published_at: reg.published,
+  geo: reg.geo,
 }));
 console.log("build complete");

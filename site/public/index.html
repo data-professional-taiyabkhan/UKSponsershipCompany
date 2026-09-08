@@ -7,6 +7,7 @@
 <meta name="description" content="The UK register of licensed visa sponsors, searchable, with the routes an outside applicant cannot use filtered out — and a daily record of who joined and left.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
 :root{
@@ -93,11 +94,32 @@ figure{margin:30px 0 0}
   vertical-align:-1px;font-style:normal}
 .cbox{background:var(--surface);border:1px solid var(--rule);border-radius:6px;
   padding:16px 10px 8px;overflow-x:auto}
-svg{display:block;width:100%;height:auto;min-width:520px}
+/* Scoped to the charts on purpose: a bare `svg` rule here also matches
+   Leaflet's overlay pane and squashes every marker off-position. */
+.cbox>svg{display:block;width:100%;height:auto;min-width:520px}
 .gl{stroke:var(--rule-soft);stroke-width:1}
 .axl{font-family:"IBM Plex Mono",monospace;font-size:11px;fill:var(--ink-3)}
 .dlab{font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:500}
 figcaption{font-size:.78rem;color:var(--ink-3);margin-top:10px;line-height:1.5}
+
+/* ---- map ---- */
+#map{height:520px;width:100%;background:var(--surface-2);border-bottom:1px solid var(--rule-soft)}
+@media(max-width:640px){#map{height:380px}}
+.leaflet-container{font:inherit;background:var(--surface-2)}
+.leaflet-pane svg,.leaflet-pane img,.leaflet-container img{width:auto;height:auto;min-width:0;max-width:none}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:var(--raise);color:var(--ink);
+  box-shadow:0 4px 20px rgba(0,0,0,.28);border-radius:5px}
+.leaflet-popup-content{margin:13px 15px;font-size:.87rem;line-height:1.5}
+.leaflet-popup-content h4{margin:0 0 5px;font-size:.95rem;font-family:"Public Sans",sans-serif}
+.leaflet-popup-content .addr{color:var(--ink-2);font-size:.82rem}
+.leaflet-popup-content .approx{color:var(--s2);font-size:.76rem;margin-top:6px;
+  font-family:"IBM Plex Mono",monospace}
+.leaflet-control-attribution{background:var(--surface)!important;color:var(--ink-3)!important;font-size:10px}
+.leaflet-control-attribution a{color:var(--ink-2)!important}
+.leaflet-bar a{background:var(--raise)!important;color:var(--ink)!important;border-color:var(--rule)!important}
+.maphint{padding:9px 20px;font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--ink-3);
+  border-bottom:1px solid var(--rule-soft);display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center}
+.maphint .sw{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:0}
 
 /* ---- search tool ---- */
 .tool{background:var(--surface);border:1px solid var(--rule);border-radius:6px;
@@ -176,6 +198,7 @@ footer a{color:var(--ink-2)}
   <div class="prov">
     <span><b>Register</b> <span id="p-reg">loading…</span></span>
     <span><b>Visa stats</b> YE June 2026</span>
+    <span><b>Geocoded</b> <span id="p-geo">—</span></span>
     <span><b>Licence</b> OGL v3.0</span>
   </div>
 </header>
@@ -227,7 +250,7 @@ footer a{color:var(--ink-2)}
 <section id="search">
   <div class="tag"><i></i>Register of licensed sponsors: workers</div>
   <h2>Search the register</h2>
-  <p class="lede" style="margin-top:16px">Every licensed sponsor, grouped so an employer appears once with all its routes. Routes an outside applicant cannot apply to are marked — intra-company transfers move an employer's existing overseas staff and are not open jobs.</p>
+  <p class="lede" style="margin-top:16px">Every licensed sponsor, grouped so an employer appears once with all its routes. The map and the table are the same query — filter once and both update. Routes an outside applicant cannot apply to are marked: intra-company transfers move an employer's existing overseas staff and are not open jobs.</p>
 
   <div class="tool">
     <div class="controls">
@@ -240,10 +263,16 @@ footer a{color:var(--ink-2)}
       <label class="chk"><input type="checkbox" id="external" checked>
         <span>Only routes I can apply to</span></label>
     </div>
+    <div id="map"></div>
+    <div class="maphint" id="maphint">
+      <span><i class="sw" style="background:var(--s1)"></i>registered address</span>
+      <span><i class="sw" style="background:var(--s2)"></i>town only (approximate)</span>
+      <span id="geostat"></span>
+    </div>
     <div class="status" id="status">Loading the register…</div>
     <div class="tscroll">
       <table>
-        <thead><tr><th>Employer</th><th>Town</th><th>Routes</th></tr></thead>
+        <thead><tr><th>Employer</th><th>Location</th><th>Routes &amp; rating</th></tr></thead>
         <tbody id="rows"></tbody>
       </table>
     </div>
@@ -282,11 +311,13 @@ footer a{color:var(--ink-2)}
     <a href="https://www.gov.uk/government/statistical-data-sets/immigration-system-statistics-data-tables">Immigration system statistics</a>, year ending June 2026 (<span class="mono">Occ_D02</span>, <span class="mono">Exe_D01</span>, <span class="mono">Exe_D02</span>).
     Register data is fetched fresh at each deploy; snapshot history is kept in the
     <a href="https://github.com/data-professional-taiyabkhan/UKSponsershipCompany">project repository</a>.</p>
-  <p>Built by Mohammad Taiyab Khan. This is an independent analysis of public data and is not affiliated with the Home Office. Nothing here is immigration advice.</p>
+  <p><strong>Built by <a href="https://autostrata.ai">AutoStrata</a></strong> — a two-person AI engineering studio. Made because one of us was doing this search by hand. The underlying geocoding, which matches sponsors to their Companies House registered address, comes from an earlier version of this project built with Yasjudan ul Islam.</p>
+  <p>Independent analysis of public data. Not affiliated with, or endorsed by, the Home Office. Nothing here is immigration advice — check anything that matters against the official register and the Immigration Rules.</p>
 </footer>
 
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 const $=s=>document.querySelector(s), NS='http://www.w3.org/2000/svg';
 const fmt=n=>n.toLocaleString('en-GB');
@@ -357,9 +388,115 @@ function parseRows(payload){
     out.push({n:p[0], t:p[1], c:p[2],
       g:p[3]?p[3].split(',').map(Number):[],
       r:p[4]?p[4].split(',').map(Number):[],
-      s:(p[0]+' '+p[1]).toLowerCase()});
+      lat:p[5]?+p[5]:null, lng:p[6]?+p[6]:null, pc:p[7]||'', prec:+(p[8]||0),
+      s:(p[0]+' '+p[1]+' '+(p[7]||'')).toLowerCase()});
   }
   return out;
+}
+
+/* ---- map ---------------------------------------------------------------
+   Plotting 127,000 pins is what makes most sponsor maps useless, so the map
+   draws the current query, not the whole register: individual markers while
+   the result set is small enough to read, town-level circles sized by count
+   when it isn't. ---------------------------------------------------------*/
+const MARKER_CAP=1200;
+const UK_BOUNDS=L.latLngBounds([49.9,-8.2],[59.4,1.9]);
+let map=null, layer=null;
+
+function initMap(){
+  if(map||typeof L==='undefined') return;
+  map=L.map('map',{scrollWheelZoom:false,attributionControl:true});
+  map.fitBounds(UK_BOUNDS,{padding:[12,12]});
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    maxZoom:18, attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+  map.on('click',()=>map.scrollWheelZoom.enable());
+  layer=L.layerGroup().addTo(map);
+
+  // Leaflet caches the container size at init. If the map is laid out while
+  // hidden or the window is resized, that cached size is wrong and tiles stop
+  // loading — so recompute whenever the element's box actually changes.
+  const nudge=()=>map&&map.invalidateSize({animate:false});
+  if('ResizeObserver' in window){
+    let w=0,h=0;
+    new ResizeObserver(es=>{
+      const r=es[0].contentRect;
+      if(Math.abs(r.width-w)>1||Math.abs(r.height-h)>1){w=r.width;h=r.height;nudge()}
+    }).observe($('#map'));
+  }
+  addEventListener('resize',()=>{clearTimeout(initMap._t);initMap._t=setTimeout(nudge,150)});
+}
+
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+function drawMap(hits){
+  if(!map) return;
+  layer.clearLayers();
+  const placed=hits.filter(o=>o.lat!=null);
+  $('#geostat').textContent =
+    `${fmt(placed.length)} of ${fmt(hits.length)} shown on map · `+
+    `${fmt(placed.filter(o=>o.prec===2).length)} at registered address`;
+
+  if(!placed.length){ map.fitBounds(UK_BOUNDS,{padding:[12,12]}); return; }
+
+  if(placed.length<=MARKER_CAP){
+    for(const o of placed){
+      const exact=o.prec===2;
+      const m=L.circleMarker([o.lat,o.lng],{
+        radius:exact?5:4, weight:1.5,
+        color:exact?tok('--s1'):tok('--s2'),
+        fillColor:exact?tok('--s1'):tok('--s2'),
+        fillOpacity:exact?.75:.4});
+      const routes=o.r.map(i=>DATA.routes[i]).join(', ');
+      m.bindPopup(
+        `<h4>${esc(o.n)}</h4>`+
+        `<div class="addr">${esc(o.t)}${o.c?' · '+esc(o.c):''}${o.pc?' · '+esc(o.pc):''}</div>`+
+        `<div class="addr" style="margin-top:6px">${esc(routes)}</div>`+
+        (exact?'':'<div class="approx">town centre — exact address not matched</div>'));
+      layer.addLayer(m);
+    }
+  } else {
+    // Aggregate by town so the shape of the data survives at national scale.
+    const by=new Map();
+    for(const o of placed){
+      const k=o.t.toUpperCase();
+      let a=by.get(k);
+      if(!a){a={n:0,lat:0,lng:0,town:o.t};by.set(k,a)}
+      a.n++; a.lat+=o.lat; a.lng+=o.lng;
+    }
+    const max=Math.max(...[...by.values()].map(a=>a.n));
+    for(const a of by.values()){
+      const r=4+18*Math.sqrt(a.n/max);
+      const m=L.circleMarker([a.lat/a.n,a.lng/a.n],{
+        radius:r, weight:1, color:tok('--s1'),
+        fillColor:tok('--s1'), fillOpacity:.35});
+      m.bindPopup(`<h4>${esc(a.town)}</h4><div class="addr">${fmt(a.n)} matching sponsors</div>`);
+      layer.addLayer(m);
+    }
+  }
+
+  fitToResults(placed);
+}
+
+/* Frame the answer. A map that stays at national zoom while you search one
+   town is decoration; but a plain fitBounds is worse, because a couple of
+   registered offices in the wrong county drag the view back out to the whole
+   country. So fit the 2nd-98th percentile of the results and let the genuine
+   outliers sit off-screen — they are still in the table. */
+function fitToResults(placed){
+  if(placed.length>MARKER_CAP){
+    map.fitBounds(UK_BOUNDS,{padding:[12,12],animate:false});
+    return;
+  }
+  const lats=placed.map(o=>o.lat).sort((a,b)=>a-b);
+  const lngs=placed.map(o=>o.lng).sort((a,b)=>a-b);
+  const at=(arr,p)=>arr[Math.min(arr.length-1,Math.max(0,Math.round((arr.length-1)*p)))];
+  const pad=placed.length<4?0:0.02;
+  const b=L.latLngBounds(
+    [at(lats,pad), at(lngs,pad)],
+    [at(lats,1-pad), at(lngs,1-pad)]);
+  if(b.isValid()){
+    map.fitBounds(b,{padding:[30,30],maxZoom:placed.length===1?14:12,animate:false});
+  }
 }
 
 function render(){
@@ -395,7 +532,13 @@ function render(){
       const td1=document.createElement('td');
       td1.className='orgname'; td1.textContent=o.n;
       const td2=document.createElement('td');
-      td2.className='town'; td2.textContent=o.t + (o.c?' · '+o.c:'');
+      td2.className='town';
+      td2.textContent=o.t + (o.c?' · '+o.c:'');
+      if(o.pc){
+        const pc=document.createElement('div');
+        pc.className='mono'; pc.style.cssText='font-size:.76rem;color:var(--ink-3);margin-top:2px';
+        pc.textContent=o.pc; td2.appendChild(pc);
+      }
       const td3=document.createElement('td');
       for(const i of o.r){
         const sp=document.createElement('span');
@@ -414,6 +557,7 @@ function render(){
     tb.appendChild(frag);
   }
 
+  drawMap(hits);
   const shown=Math.min(hits.length,LIMIT);
   const n=hits.length;
   $('#status').innerHTML =
@@ -444,6 +588,11 @@ async function loadRegister(){
     const d=(meta?.gov_published_at||reg.gov_published_at||'').slice(0,10);
     $('#p-reg').textContent = d ? `${d} · ${fmt(reg.licence_rows)} licences` : `${fmt(reg.licence_rows)} licences`;
 
+    const g=reg.geo||{};
+    if(g.exact!=null){
+      $('#p-geo').textContent=`${fmt(g.exact)} at registered address, ${fmt(g.approx)} town-level`;
+    }
+    initMap();
     ['#q','#route','#rating','#external'].forEach(s=>{
       $(s).addEventListener('input',render); $(s).addEventListener('change',render);
     });
