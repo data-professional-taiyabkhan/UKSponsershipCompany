@@ -1,9 +1,10 @@
-# Large Home Office source spreadsheets — fetch with snapshot/download_data.py
+# Large Home Office source spreadsheets. Re-download from
+# https://www.gov.uk/government/statistical-data-sets/immigration-system-statistics-data-tables
 data/*.xlsx
 data/*.csv
 
-# The original 16 MB geocoded file predates the snapshot pipeline
-cleaned_geocoded_data.csv
+# NB cleaned_geocoded_data.csv is already tracked and stays tracked - it is the
+# reusable Companies House address match, not a build artefact.
 
 __pycache__/
 *.pyc
