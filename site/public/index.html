@@ -415,9 +415,10 @@ function render(){
   }
 
   const shown=Math.min(hits.length,LIMIT);
+  const n=hits.length;
   $('#status').innerHTML =
-    `<b>${fmt(hits.length)}</b> employers match · showing ${fmt(shown)}` +
-    (hits.length>LIMIT?' · refine to see more':'') +
+    `<b>${fmt(n)}</b> ${n===1?'employer matches':'employers match'}` +
+    (n>LIMIT?` · showing ${fmt(shown)} · refine to see more`:'') +
     ` · <b>${fmt(ORGS.length)}</b> on the register`;
 }
 
