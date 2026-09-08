@@ -1,0 +1,11 @@
+# Large Home Office source spreadsheets — fetch with snapshot/download_data.py
+data/*.xlsx
+data/*.csv
+
+# The original 16 MB geocoded file predates the snapshot pipeline
+cleaned_geocoded_data.csv
+
+__pycache__/
+*.pyc
+.venv/
+.env
