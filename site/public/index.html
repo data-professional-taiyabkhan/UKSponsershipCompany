@@ -3,220 +3,344 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>UK Sponsor Register — who actually sponsors</title>
-<meta name="description" content="The UK register of licensed visa sponsors, searchable, with the routes an outside applicant cannot use filtered out — and a daily record of who joined and left.">
+<title>UK Sponsor Register — find who actually sponsors</title>
+<meta name="description" content="Search every UK licensed visa sponsor, see them on a map, find the ones near you, and track who joined the register this week. Built from Home Office open data.">
+<meta name="theme-color" content="#08131A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..800&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
+/* ============================================================
+   UK Sponsor Register
+   Visual direction: survey chart. The subject is a national
+   dataset you navigate geographically, so the page borrows from
+   cartography — contour ground, coordinate ticks, expanded
+   technical display type, tabular numerals throughout.
+   ============================================================ */
 :root{
-  --paper:#EDF0F0; --surface:#FAFBFB; --surface-2:#E3E8E9; --raise:#fff;
-  --ink:#101E24; --ink-2:#31474E; --ink-3:#5C6E73;
-  --rule:#C9D3D5; --rule-soft:#DCE3E4;
-  --s1:#0089A7; --s2:#A87400; --signal:#A93318; --ok:#0F7A54;
-  --s1-fill:rgba(0,137,167,.13); --chip:#E1EBEE;
-  --shadow:0 1px 2px rgba(16,30,36,.06),0 8px 24px -16px rgba(16,30,36,.28);
+  --paper:#EBEFEF; --surface:#F8FAFA; --sunk:#E0E7E8; --raise:#fff;
+  --ink:#0E1A20; --ink-2:#33484F; --ink-3:#64777D;
+  --rule:#C6D1D3; --rule-soft:#D9E1E2;
+  --s1:#0089A7; --s2:#A87400; --s3:#0F7A54; --signal:#A93318;
+  --s1-soft:rgba(0,137,167,.12); --s1-ghost:rgba(0,137,167,.05);
+  --chip:#DEE8EA; --contour:rgba(14,26,32,.055);
+  --shadow-1:0 1px 2px rgba(14,26,32,.06);
+  --shadow-2:0 2px 4px rgba(14,26,32,.05),0 12px 32px -18px rgba(14,26,32,.35);
+  --tiles:light_all;
+  --ease:cubic-bezier(.22,.68,.36,1);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --paper:#0C1519; --surface:#131F24; --surface-2:#1B2A30; --raise:#18262C;
-  --ink:#E6EDEE; --ink-2:#AFC1C6; --ink-3:#87999E;
-  --rule:#2A3B42; --rule-soft:#1F2E34;
-  --s1:#2596B2; --s2:#B8892C; --signal:#D2664A; --ok:#3FA37B;
-  --s1-fill:rgba(37,150,178,.18); --chip:#1D2E35;
-  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -16px rgba(0,0,0,.8);
+  --paper:#08131A; --surface:#0E1F29; --sunk:#0A1922; --raise:#142A36;
+  --ink:#E8EFF0; --ink-2:#A9BEC5; --ink-3:#7C9199;
+  --rule:#223A45; --rule-soft:#162C36;
+  --s1:#2596B2; --s2:#B8892C; --s3:#3FA37B; --signal:#D2664A;
+  --s1-soft:rgba(37,150,178,.16); --s1-ghost:rgba(37,150,178,.06);
+  --chip:#17303B; --contour:rgba(232,239,240,.05);
+  --shadow-1:0 1px 2px rgba(0,0,0,.5);
+  --shadow-2:0 2px 4px rgba(0,0,0,.4),0 12px 32px -18px rgba(0,0,0,.9);
+  --tiles:dark_all;
 }}
 :root[data-theme="dark"]{
-  --paper:#0C1519; --surface:#131F24; --surface-2:#1B2A30; --raise:#18262C;
-  --ink:#E6EDEE; --ink-2:#AFC1C6; --ink-3:#87999E;
-  --rule:#2A3B42; --rule-soft:#1F2E34;
-  --s1:#2596B2; --s2:#B8892C; --signal:#D2664A; --ok:#3FA37B;
-  --s1-fill:rgba(37,150,178,.18); --chip:#1D2E35;
-  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -16px rgba(0,0,0,.8);
+  --paper:#08131A; --surface:#0E1F29; --sunk:#0A1922; --raise:#142A36;
+  --ink:#E8EFF0; --ink-2:#A9BEC5; --ink-3:#7C9199;
+  --rule:#223A45; --rule-soft:#162C36;
+  --s1:#2596B2; --s2:#B8892C; --s3:#3FA37B; --signal:#D2664A;
+  --s1-soft:rgba(37,150,178,.16); --s1-ghost:rgba(37,150,178,.06);
+  --chip:#17303B; --contour:rgba(232,239,240,.05);
+  --shadow-1:0 1px 2px rgba(0,0,0,.5);
+  --shadow-2:0 2px 4px rgba(0,0,0,.4),0 12px 32px -18px rgba(0,0,0,.9);
+  --tiles:dark_all;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);
   font-family:"Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  font-size:16.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1080px;margin:0 auto;padding:0 26px}
-h1,h2{font-family:Newsreader,Georgia,serif;font-weight:500;margin:0;text-wrap:balance;letter-spacing:-.015em}
-h1{font-size:clamp(2.3rem,5.6vw,3.6rem);line-height:1.05}
-h2{font-size:clamp(1.5rem,3vw,2rem);line-height:1.16}
-p{margin:0 0 1.05em}
-a{color:var(--s1)}
+  font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden}
+.wrap{max-width:1180px;margin:0 auto;padding:0 30px}
+@media(max-width:640px){.wrap{padding:0 18px}}
+h1,h2,h3{margin:0;text-wrap:balance}
+h1,h2,.display{font-family:Archivo,Impact,sans-serif;font-variation-settings:"wdth" 112;
+  font-weight:700;letter-spacing:-.025em;line-height:1.02}
+h1{font-size:clamp(2.6rem,7vw,5.2rem);text-transform:uppercase}
+h2{font-size:clamp(1.7rem,3.4vw,2.5rem);text-transform:uppercase;
+  font-variation-settings:"wdth" 105}
+h3{font-size:1.05rem;font-weight:700;letter-spacing:-.01em}
+p{margin:0 0 1em}
+a{color:var(--s1);text-underline-offset:3px}
 .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
-.num{font-variant-numeric:tabular-nums}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.lede{font-size:1.06rem;color:var(--ink-2);max-width:64ch}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.7rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3)}
 
-nav{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--paper) 92%,transparent);
-  backdrop-filter:blur(8px);border-bottom:1px solid var(--rule-soft)}
-nav .wrap{display:flex;align-items:center;gap:22px;height:52px}
-nav b{font-family:"IBM Plex Mono",monospace;font-size:.76rem;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--ink-2);font-weight:500;margin-right:auto}
-nav a{font-size:.87rem;color:var(--ink-2);text-decoration:none;white-space:nowrap}
-nav a:hover{color:var(--s1)}
+/* ---------- motion: everything ends visible ---------- */
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes wipe{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.rise{animation:rise .62s var(--ease) both}
+.d1{animation-delay:.05s}.d2{animation-delay:.12s}.d3{animation-delay:.19s}
+.d4{animation-delay:.26s}.d5{animation-delay:.33s}.d6{animation-delay:.4s}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
 
-header{padding:60px 0 44px;border-bottom:2px solid var(--ink)}
-.kicker{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--ink-3);margin-bottom:20px}
-.stand{font-family:Newsreader,Georgia,serif;font-size:1.3rem;line-height:1.48;
-  color:var(--ink-2);max-width:46ch;margin:20px 0 0}
-.prov{display:flex;flex-wrap:wrap;gap:7px 24px;margin-top:28px;
-  font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--ink-3)}
-.prov b{color:var(--ink-2);font-weight:500}
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--rule-soft)}
+nav .wrap{display:flex;align-items:center;gap:8px;height:56px}
+.brand{font-family:Archivo,sans-serif;font-variation-settings:"wdth" 118;font-weight:800;
+  font-size:.83rem;letter-spacing:.02em;text-transform:uppercase;margin-right:auto;
+  display:flex;align-items:center;gap:9px}
+.brand .dot{width:8px;height:8px;border-radius:50%;background:var(--s3);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--s3) 22%,transparent)}
+nav a.nl{font-size:.85rem;color:var(--ink-2);text-decoration:none;padding:7px 11px;border-radius:6px}
+nav a.nl:hover{color:var(--ink);background:var(--chip)}
+@media(max-width:760px){nav a.nl{display:none}}
+.tog{background:var(--chip);border:1px solid var(--rule);color:var(--ink-2);
+  width:34px;height:34px;border-radius:8px;cursor:pointer;display:grid;place-items:center;
+  font-size:15px;line-height:1;transition:background .18s,color .18s}
+.tog:hover{background:var(--rule-soft);color:var(--ink)}
+.tog:focus-visible{outline:2px solid var(--s1);outline-offset:2px}
 
-section{padding:52px 0;border-bottom:1px solid var(--rule-soft)}
-.tag{display:inline-flex;align-items:center;gap:8px;background:var(--chip);border-radius:3px;
-  padding:4px 9px;font-family:"IBM Plex Mono",monospace;font-size:.7rem;
-  letter-spacing:.05em;color:var(--ink-2);margin-bottom:14px}
+/* ---------- hero ---------- */
+.hero{position:relative;padding:72px 0 56px;overflow:hidden;border-bottom:1px solid var(--rule)}
+#contour{position:absolute;top:0;left:0;height:100%;pointer-events:none;opacity:.9;
+  will-change:transform;animation:drift 120s linear infinite alternate}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(-33%)}}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{margin:16px 0 0;max-width:15ch}
+.hero h1 em{font-style:normal;color:var(--s1)}
+.hero .sub{font-size:1.16rem;line-height:1.5;color:var(--ink-2);max-width:50ch;margin:20px 0 0}
+.cta{display:flex;flex-wrap:wrap;gap:11px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:9px;padding:11px 18px;
+  font-size:.92rem;font-weight:600;text-decoration:none;cursor:pointer;border:1px solid transparent;
+  transition:transform .16s var(--ease),background .18s,border-color .18s}
+.btn:active{transform:translateY(1px)}
+.btn-p{background:var(--s1);color:#fff;border-color:var(--s1)}
+.btn-p:hover{background:color-mix(in srgb,var(--s1) 86%,#000)}
+.btn-s{background:var(--surface);color:var(--ink);border-color:var(--rule)}
+.btn-s:hover{border-color:var(--s1);color:var(--s1)}
+.btn:focus-visible{outline:2px solid var(--s1);outline-offset:2px}
+
+.statbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;
+  margin-top:48px;background:var(--rule-soft);border:1px solid var(--rule-soft);
+  border-radius:12px;overflow:hidden}
+.stat{background:var(--surface);padding:20px 22px}
+.stat .v{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
+  font-size:clamp(1.55rem,3.4vw,2.15rem);font-weight:600;letter-spacing:-.03em;line-height:1}
+.stat .k{font-size:.79rem;color:var(--ink-3);margin-top:8px;line-height:1.35}
+.stat.a .v{color:var(--s1)} .stat.b .v{color:var(--s2)} .stat.c .v{color:var(--s3)}
+
+/* ---------- sections ---------- */
+section{padding:62px 0;border-bottom:1px solid var(--rule-soft);position:relative}
+.tag{display:inline-flex;align-items:center;gap:8px;background:var(--chip);border-radius:20px;
+  padding:5px 12px;font-family:"IBM Plex Mono",monospace;font-size:.69rem;
+  letter-spacing:.06em;color:var(--ink-2);margin-bottom:16px}
 .tag i{width:5px;height:5px;border-radius:50%;background:var(--s1);font-style:normal}
-.lede{font-size:1.05rem;color:var(--ink-2);max-width:62ch}
-.col{max-width:660px}
+.col{max-width:680px}
 
-.hero{background:var(--surface);border:1px solid var(--rule);border-radius:6px;
-  padding:34px 32px;margin:30px 0;box-shadow:var(--shadow)}
-.hrow{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px 42px}
+/* ---------- the equation ---------- */
+.eqbox{background:var(--surface);border:1px solid var(--rule);border-radius:14px;
+  padding:34px 32px;margin:32px 0;box-shadow:var(--shadow-2);position:relative;overflow:hidden}
+.eqbox::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;
+  background:linear-gradient(180deg,var(--s1),var(--s2));transform-origin:top;
+  animation:wipe .8s var(--ease) .3s both}
+.eqrow{display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px 40px}
 .big{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
-  font-size:clamp(2.2rem,6vw,3.6rem);font-weight:500;line-height:.94;letter-spacing:-.03em}
+  font-size:clamp(2.1rem,5.6vw,3.5rem);font-weight:600;line-height:.94;letter-spacing:-.035em}
 .big.a{color:var(--s1)} .big.b{color:var(--s2)}
-.blab{font-size:.81rem;color:var(--ink-3);margin-top:10px;max-width:22ch;line-height:1.4}
-.eq{font-family:Newsreader,serif;font-size:1.9rem;color:var(--ink-3);padding-bottom:12px}
-.hout{margin-top:24px;padding-top:20px;border-top:1px solid var(--rule-soft);
-  color:var(--ink-2);max-width:60ch}
-.hout b{color:var(--ink)}
+.blab{font-size:.8rem;color:var(--ink-3);margin-top:11px;max-width:23ch;line-height:1.4}
+.op{font-family:Archivo,sans-serif;font-weight:400;font-size:1.7rem;color:var(--ink-3);padding-bottom:14px}
+.eqout{margin-top:26px;padding-top:22px;border-top:1px solid var(--rule-soft);
+  color:var(--ink-2);max-width:62ch}
+.eqout b{color:var(--ink)}
 
-figure{margin:30px 0 0}
-.fh{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:6px}
-.ft{font-weight:600;font-size:.96rem}
-.fs{font-size:.81rem;color:var(--ink-3)}
-.legend{display:flex;gap:18px;margin:10px 0 4px;font-size:.81rem;color:var(--ink-2)}
-.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:6px;
+/* ---------- charts ---------- */
+figure{margin:34px 0 0}
+.fh{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}
+.ft{font-weight:700;font-size:.95rem}
+.fs{font-size:.8rem;color:var(--ink-3)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin:10px 0 6px;font-size:.8rem;color:var(--ink-2)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;
   vertical-align:-1px;font-style:normal}
-.cbox{background:var(--surface);border:1px solid var(--rule);border-radius:6px;
-  padding:16px 10px 8px;overflow-x:auto}
-/* Scoped to the charts on purpose: a bare `svg` rule here also matches
-   Leaflet's overlay pane and squashes every marker off-position. */
+.cbox{background:var(--surface);border:1px solid var(--rule);border-radius:12px;
+  padding:18px 12px 10px;overflow-x:auto}
 .cbox>svg{display:block;width:100%;height:auto;min-width:520px}
 .gl{stroke:var(--rule-soft);stroke-width:1}
 .axl{font-family:"IBM Plex Mono",monospace;font-size:11px;fill:var(--ink-3)}
 .dlab{font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:500}
-figcaption{font-size:.78rem;color:var(--ink-3);margin-top:10px;line-height:1.5}
+figcaption{font-size:.78rem;color:var(--ink-3);margin-top:12px;line-height:1.55;max-width:80ch}
+.tw{overflow-x:auto}
+table.plain{width:100%;border-collapse:collapse;font-size:.89rem;margin-top:22px}
+table.plain th{text-align:left;padding:9px 12px 9px 0;border-bottom:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink-3);font-weight:500}
+table.plain td{padding:9px 12px 9px 0;border-bottom:1px solid var(--rule-soft)}
+table.plain td.n{text-align:right;font-family:"IBM Plex Mono",monospace;
+  font-variant-numeric:tabular-nums;padding-right:0}
 
-/* ---- map ---- */
-#map{height:520px;width:100%;background:var(--surface-2);border-bottom:1px solid var(--rule-soft)}
-@media(max-width:640px){#map{height:380px}}
-.leaflet-container{font:inherit;background:var(--surface-2)}
-.leaflet-pane svg,.leaflet-pane img,.leaflet-container img{width:auto;height:auto;min-width:0;max-width:none}
-.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:var(--raise);color:var(--ink);
-  box-shadow:0 4px 20px rgba(0,0,0,.28);border-radius:5px}
-.leaflet-popup-content{margin:13px 15px;font-size:.87rem;line-height:1.5}
-.leaflet-popup-content h4{margin:0 0 5px;font-size:.95rem;font-family:"Public Sans",sans-serif}
-.leaflet-popup-content .addr{color:var(--ink-2);font-size:.82rem}
-.leaflet-popup-content .approx{color:var(--s2);font-size:.76rem;margin-top:6px;
-  font-family:"IBM Plex Mono",monospace}
-.leaflet-control-attribution{background:var(--surface)!important;color:var(--ink-3)!important;font-size:10px}
-.leaflet-control-attribution a{color:var(--ink-2)!important}
-.leaflet-bar a{background:var(--raise)!important;color:var(--ink)!important;border-color:var(--rule)!important}
-.maphint{padding:9px 20px;font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--ink-3);
-  border-bottom:1px solid var(--rule-soft);display:flex;flex-wrap:wrap;gap:6px 18px;align-items:center}
-.maphint .sw{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:0}
-
-/* ---- search tool ---- */
-.tool{background:var(--surface);border:1px solid var(--rule);border-radius:6px;
-  box-shadow:var(--shadow);margin-top:26px;overflow:hidden}
-.controls{display:flex;flex-wrap:wrap;gap:12px;padding:18px 20px;
-  border-bottom:1px solid var(--rule-soft);align-items:flex-end}
-.fld{display:flex;flex-direction:column;gap:5px;min-width:0}
-.fld label{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.07em;
+/* ---------- the tool ---------- */
+.tool{background:var(--surface);border:1px solid var(--rule);border-radius:14px;
+  box-shadow:var(--shadow-2);margin-top:28px;overflow:hidden}
+.bar{display:flex;flex-wrap:wrap;gap:12px;padding:18px 20px;align-items:flex-end;
+  border-bottom:1px solid var(--rule-soft);background:var(--sunk)}
+.fld{display:flex;flex-direction:column;gap:6px;min-width:0}
+.fld label{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.09em;
   text-transform:uppercase;color:var(--ink-3)}
 .fld input,.fld select{font:inherit;font-size:.92rem;color:var(--ink);background:var(--raise);
-  border:1px solid var(--rule);border-radius:4px;padding:8px 10px;min-width:0}
-.fld input{width:min(280px,60vw)}
-.fld select{width:min(260px,60vw)}
-.fld input:focus,.fld select:focus{outline:2px solid var(--s1);outline-offset:1px;border-color:var(--s1)}
-.chk{display:flex;align-items:center;gap:8px;font-size:.87rem;color:var(--ink-2);
-  padding-bottom:9px;cursor:pointer}
-.chk input{width:15px;height:15px;accent-color:var(--s1);cursor:pointer}
-.status{padding:11px 20px;font-family:"IBM Plex Mono",monospace;font-size:.76rem;
-  color:var(--ink-3);border-bottom:1px solid var(--rule-soft);background:var(--surface-2)}
+  border:1px solid var(--rule);border-radius:8px;padding:9px 11px;min-width:0;
+  transition:border-color .18s,box-shadow .18s}
+.fld input{width:min(260px,58vw)}
+.fld select{width:min(240px,58vw)}
+.fld input:focus,.fld select:focus{outline:none;border-color:var(--s1);
+  box-shadow:0 0 0 3px var(--s1-soft)}
+.chk{display:flex;align-items:center;gap:8px;font-size:.86rem;color:var(--ink-2);
+  padding-bottom:10px;cursor:pointer;user-select:none}
+.chk input{width:16px;height:16px;accent-color:var(--s1);cursor:pointer}
+.spacer{flex:1 1 auto}
+.btn-sm{padding:9px 14px;font-size:.86rem;border-radius:8px}
+.btn-near{background:var(--s3);color:#fff;border-color:var(--s3)}
+.btn-near:hover{background:color-mix(in srgb,var(--s3) 86%,#000)}
+.btn-near.on{background:var(--s3);box-shadow:0 0 0 3px color-mix(in srgb,var(--s3) 25%,transparent)}
+.btn-near[disabled]{opacity:.6;cursor:progress}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px;padding:13px 20px;border-bottom:1px solid var(--rule-soft)}
+.chipbtn{font-family:"IBM Plex Mono",monospace;font-size:.72rem;padding:5px 11px;border-radius:16px;
+  background:transparent;border:1px solid var(--rule);color:var(--ink-2);cursor:pointer;
+  transition:all .16s var(--ease)}
+.chipbtn:hover{border-color:var(--s1);color:var(--s1)}
+.chipbtn.on{background:var(--s1);border-color:var(--s1);color:#fff}
+.chipbtn:focus-visible{outline:2px solid var(--s1);outline-offset:2px}
+
+#map{height:540px;width:100%;background:var(--sunk);border-bottom:1px solid var(--rule-soft);
+  position:relative;z-index:0}
+@media(max-width:640px){#map{height:400px}}
+.leaflet-container{font:inherit;background:var(--sunk)}
+/* Scoped away from `.cbox>svg`: a bare svg rule also matches Leaflet's overlay
+   pane and silently shrinks it, throwing every marker off-position. */
+.leaflet-pane svg,.leaflet-pane img,.leaflet-container img{width:auto;height:auto;min-width:0;max-width:none}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:var(--raise);color:var(--ink);
+  box-shadow:var(--shadow-2);border-radius:10px}
+.leaflet-popup-content{margin:14px 16px;font-size:.87rem;line-height:1.5}
+.leaflet-popup-content h4{margin:0 0 6px;font-size:.96rem;font-family:"Public Sans",sans-serif;font-weight:700}
+.leaflet-popup-content .addr{color:var(--ink-2);font-size:.81rem}
+.leaflet-popup-content .rts{margin-top:8px;display:flex;flex-wrap:wrap;gap:4px}
+.leaflet-popup-content .approx{color:var(--s2);font-size:.75rem;margin-top:8px;
+  font-family:"IBM Plex Mono",monospace}
+.leaflet-control-attribution{background:color-mix(in srgb,var(--surface) 86%,transparent)!important;
+  color:var(--ink-3)!important;font-size:10px}
+.leaflet-control-attribution a{color:var(--ink-2)!important}
+.leaflet-bar a{background:var(--raise)!important;color:var(--ink)!important;border-color:var(--rule)!important}
+.leaflet-bar a:hover{background:var(--chip)!important}
+.mlegend{padding:10px 20px;font-family:"IBM Plex Mono",monospace;font-size:.71rem;color:var(--ink-3);
+  border-bottom:1px solid var(--rule-soft);display:flex;flex-wrap:wrap;gap:7px 18px;align-items:center}
+.mlegend .sw{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px}
+
+.status{padding:12px 20px;font-family:"IBM Plex Mono",monospace;font-size:.76rem;color:var(--ink-3);
+  border-bottom:1px solid var(--rule-soft);background:var(--sunk);
+  display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
 .status b{color:var(--ink);font-weight:600}
-.tscroll{max-height:560px;overflow:auto}
-table{width:100%;border-collapse:collapse;font-size:.9rem}
-thead th{position:sticky;top:0;background:var(--surface);z-index:2;text-align:left;
-  font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.07em;
+.status .spacer{flex:1 1 auto}
+.linkish{background:none;border:none;color:var(--s1);font:inherit;font-size:.76rem;
+  cursor:pointer;padding:3px 6px;border-radius:5px;text-decoration:underline;text-underline-offset:3px}
+.linkish:hover{background:var(--s1-soft)}
+.linkish:focus-visible{outline:2px solid var(--s1);outline-offset:1px}
+
+.tscroll{max-height:580px;overflow:auto}
+table.res{width:100%;border-collapse:collapse;font-size:.9rem}
+table.res thead th{position:sticky;top:0;background:var(--surface);z-index:2;text-align:left;
+  font-family:"IBM Plex Mono",monospace;font-size:.67rem;letter-spacing:.08em;
   text-transform:uppercase;color:var(--ink-3);font-weight:500;
-  padding:9px 14px;border-bottom:1px solid var(--rule)}
-tbody td{padding:9px 14px;border-bottom:1px solid var(--rule-soft);vertical-align:top}
-tbody tr:hover{background:var(--surface-2)}
+  padding:11px 16px;border-bottom:1px solid var(--rule)}
+table.res tbody td{padding:11px 16px;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+table.res tbody tr{transition:background .12s}
+table.res tbody tr:hover{background:var(--s1-ghost)}
 .orgname{font-weight:600;color:var(--ink)}
-.town{color:var(--ink-2);white-space:nowrap}
+.sub{color:var(--ink-2);font-size:.83rem;margin-top:2px}
+.pcode{font-family:"IBM Plex Mono",monospace;font-size:.75rem;color:var(--ink-3);margin-top:2px}
+.dist{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
+  color:var(--s3);font-weight:600;white-space:nowrap}
 .pill{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:.68rem;
-  padding:2px 7px;border-radius:3px;background:var(--chip);color:var(--ink-2);
+  padding:3px 8px;border-radius:14px;background:var(--chip);color:var(--ink-2);
   margin:2px 4px 2px 0;white-space:nowrap}
 .pill.no{background:transparent;border:1px dashed var(--rule);color:var(--ink-3)}
-.pill.b{background:rgba(169,51,24,.12);color:var(--signal);font-weight:600}
-.empty{padding:40px 20px;text-align:center;color:var(--ink-3)}
+.pill.b{background:color-mix(in srgb,var(--signal) 15%,transparent);color:var(--signal);font-weight:600}
+.pill.new{background:color-mix(in srgb,var(--s3) 16%,transparent);color:var(--s3);font-weight:600}
+.empty{padding:48px 22px;text-align:center;color:var(--ink-3)}
+.empty b{display:block;color:var(--ink);margin-bottom:6px;font-size:1rem}
 
-.feed{display:grid;gap:0;margin-top:24px;border-top:1px solid var(--rule)}
-.frow{display:grid;grid-template-columns:minmax(0,1fr);gap:2px;padding:13px 0;
-  border-bottom:1px solid var(--rule-soft)}
-@media(min-width:640px){.frow{grid-template-columns:104px minmax(0,1fr) auto;gap:18px;align-items:baseline}}
-.fdate{font-family:"IBM Plex Mono",monospace;font-size:.75rem;color:var(--ink-3)}
-.fname{font-weight:600}
-.ftown{font-size:.85rem;color:var(--ink-2)}
+/* ---------- feed ---------- */
+.feedgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:26px}
+.fcard{background:var(--surface);border:1px solid var(--rule-soft);border-radius:11px;padding:16px 17px;
+  transition:border-color .18s,transform .18s var(--ease)}
+.fcard:hover{border-color:var(--s3);transform:translateY(-2px)}
+.fcard .fn{font-weight:600;line-height:1.3}
+.fcard .fl{font-size:.83rem;color:var(--ink-2);margin-top:4px}
+.fcard .fd{font-family:"IBM Plex Mono",monospace;font-size:.7rem;color:var(--ink-3);margin-top:9px}
 
-.warn{border-left:3px solid var(--signal);background:var(--surface);padding:18px 20px;
-  margin:26px 0;border-radius:0 5px 5px 0}
-.warn h3{color:var(--signal);font-size:.8rem;font-weight:700;letter-spacing:.08em;
-  text-transform:uppercase;margin:0 0 8px}
-.warn p{font-size:.93rem;color:var(--ink-2);margin-bottom:.6em}
+.warn{border-left:3px solid var(--signal);background:var(--surface);padding:20px 22px;
+  margin:26px 0;border-radius:0 10px 10px 0}
+.warn h3{color:var(--signal);font-size:.79rem;font-weight:700;letter-spacing:.09em;
+  text-transform:uppercase;margin:0 0 10px;font-family:"Public Sans",sans-serif}
+.warn p{font-size:.93rem;color:var(--ink-2);margin-bottom:.65em}
 .warn p:last-child{margin-bottom:0}
-ul.tight{margin:.4em 0 1.1em;padding-left:1.1em;color:var(--ink-2)}
-ul.tight li{margin-bottom:.4em}
-ul.tight li::marker{color:var(--ink-3)}
-footer{padding:40px 0 70px;font-size:.81rem;color:var(--ink-3);max-width:74ch}
+ul.tight{margin:.4em 0 1.1em;padding-left:1.15em;color:var(--ink-2)}
+ul.tight li{margin-bottom:.45em}
+ul.tight li::marker{color:var(--s1)}
+footer{padding:46px 0 80px;font-size:.83rem;color:var(--ink-3);max-width:78ch}
 footer a{color:var(--ink-2)}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto}}
+footer strong{color:var(--ink-2)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 </style>
 </head>
 <body>
 
 <nav><div class="wrap">
-  <b>UK Sponsor Register</b>
-  <a href="#finding">The finding</a>
-  <a href="#search">Search sponsors</a>
-  <a href="#new">Newly licensed</a>
-  <a href="#limits">Limits</a>
+  <span class="brand"><span class="dot"></span>UK Sponsor Register</span>
+  <a class="nl" href="#finding">The finding</a>
+  <a class="nl" href="#search">Search</a>
+  <a class="nl" href="#new">New this week</a>
+  <a class="nl" href="#limits">Limits</a>
+  <button class="tog" id="themebtn" aria-label="Switch between light and dark">◐</button>
 </div></nav>
 
-<div class="wrap">
-
-<header>
-  <div class="kicker">Home Office open data · rebuilt September 2026</div>
-  <h1>The register is<br>not the market</h1>
-  <p class="stand">122,000 UK companies hold a Skilled Worker licence. Between them they made about 87,000 sponsored hires last year. Most licensed sponsors sponsor nobody.</p>
-  <div class="prov">
-    <span><b>Register</b> <span id="p-reg">loading…</span></span>
-    <span><b>Visa stats</b> YE June 2026</span>
-    <span><b>Geocoded</b> <span id="p-geo">—</span></span>
-    <span><b>Licence</b> OGL v3.0</span>
+<div class="hero">
+  <canvas id="contour" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="eyebrow rise d1">Home Office open data · rebuilt September 2026</div>
+    <h1 class="rise d2">Find who <em>actually</em> sponsors</h1>
+    <p class="sub rise d3">122,000 UK companies hold a Skilled Worker licence. Between them they made about 87,000 sponsored hires last year. Most licensed sponsors sponsor nobody — so the list everyone downloads is mostly empty.</p>
+    <div class="cta rise d4">
+      <a class="btn btn-p" href="#search">Search the register →</a>
+      <a class="btn btn-s" href="#finding">See what the data says</a>
+    </div>
+    <div class="statbar rise d5">
+      <div class="stat a"><div class="v num" data-count="127708">0</div><div class="k">licensed sponsors on the register today</div></div>
+      <div class="stat b"><div class="v num" data-count="86750">0</div><div class="k">sponsored hires made in 2025</div></div>
+      <div class="stat c"><div class="v num" data-count="146" data-prefix="+">0</div><div class="k">licences added in the last recorded diff</div></div>
+      <div class="stat"><div class="v num" data-count="0.71" data-dp="2">0</div><div class="k">hires per licensed sponsor, per year</div></div>
+    </div>
   </div>
-</header>
+</div>
+
+<div class="wrap">
 
 <section id="finding">
   <div class="tag"><i></i>SP register × Occ_D02 × Exe_D02</div>
   <h2>A licence is not a job</h2>
-  <p class="lede" style="margin-top:16px">Everyone downloads the sponsor register, sees a hundred thousand companies, and starts mass-applying. Put the register next to the actual visa grants and the arithmetic is blunt.</p>
+  <p class="lede" style="margin-top:16px">Everyone downloads the sponsor register, sees a hundred thousand companies, and starts mass-applying. Put the register next to the visa grants that were actually made and the arithmetic is blunt.</p>
 
-  <div class="hero">
-    <div class="hrow">
+  <div class="eqbox">
+    <div class="eqrow">
       <div><div class="big a num">121,929</div><div class="blab">organisations licensed to sponsor Skilled Workers</div></div>
-      <div class="eq">÷</div>
+      <div class="op">÷</div>
       <div><div class="big b num">86,750</div><div class="blab">new sponsored hires in 2025, from overseas <em>and</em> from inside the UK</div></div>
-      <div class="eq">=</div>
+      <div class="op">=</div>
       <div><div class="big num">0.71</div><div class="blab">sponsored hires per licensed sponsor, per year</div></div>
     </div>
-    <div class="hout">And that is the <b>mean</b>. A few hundred NHS trusts, consultancies and banks sponsor dozens each, so the <b>median licensed sponsor sponsors nobody at all</b> in a given year. The register tells you who <b>may</b> sponsor. It never tells you who <b>does</b>.</div>
+    <div class="eqout">And that is the <b>mean</b>. A few hundred NHS trusts, consultancies and banks sponsor dozens each, so the <b>median licensed sponsor sponsors nobody at all</b> in a given year. The register tells you who <b>may</b> sponsor. It never tells you who <b>does</b>.</div>
   </div>
 
   <figure>
@@ -245,47 +369,76 @@ footer a{color:var(--ink-2)}
       aria-label="IT grants fall from 15,923 in 2022 to 5,005 in 2025 while IT's share of all sponsored grants rises from 4.3 percent in 2023 to 14.1 percent in 2026."></svg></div>
     <figcaption>2026 covers Q1–Q2 only. IT is now the single largest sponsored occupation entering the UK for the first time — not because tech hiring grew, but because care work collapsed around it (SOC 613: 107,847 grants in 2023, 3,167 in 2025).</figcaption>
   </figure>
+
+  <div class="tw">
+  <table class="plain">
+    <thead><tr><th>Industry</th><th style="text-align:right">2023</th><th style="text-align:right">YE Q2 2026</th><th style="text-align:right">change</th></tr></thead>
+    <tbody>
+      <tr><td>Human health &amp; social work</td><td class="n">141,353</td><td class="n">7,167</td><td class="n" style="color:var(--signal)">−95%</td></tr>
+      <tr><td>Professional, scientific &amp; technical</td><td class="n">11,481</td><td class="n">5,338</td><td class="n" style="color:var(--signal)">−54%</td></tr>
+      <tr><td>Information &amp; communications</td><td class="n">7,924</td><td class="n">3,659</td><td class="n" style="color:var(--signal)">−54%</td></tr>
+      <tr><td>Financial &amp; insurance</td><td class="n">7,464</td><td class="n">5,934</td><td class="n" style="color:var(--signal)">−20%</td></tr>
+      <tr><td>Accommodation &amp; food service</td><td class="n">8,851</td><td class="n">541</td><td class="n" style="color:var(--signal)">−94%</td></tr>
+      <tr><td>Education</td><td class="n">5,815</td><td class="n">1,747</td><td class="n" style="color:var(--signal)">−70%</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="fs" style="margin-top:12px">Finance is the most resilient large sector in the data — it fell by a fifth while everything around it halved.</p>
 </section>
 
 <section id="search">
   <div class="tag"><i></i>Register of licensed sponsors: workers</div>
   <h2>Search the register</h2>
-  <p class="lede" style="margin-top:16px">Every licensed sponsor, grouped so an employer appears once with all its routes. The map and the table are the same query — filter once and both update. Routes an outside applicant cannot apply to are marked: intra-company transfers move an employer's existing overseas staff and are not open jobs.</p>
+  <p class="lede" style="margin-top:16px">Every licensed sponsor, grouped so an employer appears once with all its routes. The map and the table are one query — filter once and both update. Routes an outside applicant cannot apply to are marked: intra-company transfers move an employer's existing overseas staff and are not open jobs.</p>
 
   <div class="tool">
-    <div class="controls">
-      <div class="fld"><label for="q">Employer or town</label>
-        <input id="q" type="search" placeholder="e.g. Monzo, or Reading" autocomplete="off"></div>
+    <div class="bar">
+      <div class="fld"><label for="q">Employer, town or postcode</label>
+        <input id="q" type="search" placeholder="Monzo · Reading · RG1" autocomplete="off" spellcheck="false"></div>
       <div class="fld"><label for="route">Route</label><select id="route"></select></div>
       <div class="fld"><label for="rating">Rating</label><select id="rating">
-        <option value="">Any</option><option value="A">A rating only</option>
-        <option value="B">B rating only</option></select></div>
+        <option value="">Any</option><option value="A">A rating</option><option value="B">B rating</option></select></div>
+      <div class="fld" id="radwrap" hidden><label for="radius">Within</label><select id="radius">
+        <option value="5">5 km</option><option value="10" selected>10 km</option>
+        <option value="25">25 km</option><option value="50">50 km</option></select></div>
       <label class="chk"><input type="checkbox" id="external" checked>
         <span>Only routes I can apply to</span></label>
+      <span class="spacer"></span>
+      <button class="btn btn-near btn-sm" id="nearbtn" type="button">◎ Near me</button>
     </div>
+
+    <div class="chips" id="chips"></div>
+
     <div id="map"></div>
-    <div class="maphint" id="maphint">
-      <span><i class="sw" style="background:var(--s1)"></i>registered address</span>
-      <span><i class="sw" style="background:var(--s2)"></i>town only (approximate)</span>
+    <div class="mlegend">
+      <span><i class="sw" style="background:var(--s1)"></i>located to the organisation</span>
+      <span><i class="sw" style="background:var(--s2)"></i>town centre only</span>
       <span id="geostat"></span>
     </div>
-    <div class="status" id="status">Loading the register…</div>
+
+    <div class="status" id="status"><span id="statustext">Loading the register…</span>
+      <span class="spacer"></span>
+      <button class="linkish" id="csvbtn" type="button" hidden>Download these results as CSV</button>
+      <button class="linkish" id="resetbtn" type="button" hidden>Reset filters</button>
+    </div>
+
     <div class="tscroll">
-      <table>
-        <thead><tr><th>Employer</th><th>Location</th><th>Routes &amp; rating</th></tr></thead>
+      <table class="res">
+        <thead><tr><th>Employer</th><th>Location</th><th id="th3">Routes &amp; rating</th></tr></thead>
         <tbody id="rows"></tbody>
       </table>
     </div>
   </div>
+  <p class="fs" style="margin-top:14px">“Near me” uses your browser's location and never leaves your device — nothing is sent anywhere. If you'd rather not share it, type a postcode instead and the same distance search runs from there.</p>
 </section>
 
 <section id="new">
   <div class="tag"><i></i>daily snapshot diff</div>
-  <h2>Newly licensed</h2>
-  <p class="lede" style="margin-top:16px">There is no official archive of the register — the asset URL changes on every publish and nobody publishes history. This site keeps its own daily snapshots and diffs them. A company that has just paid for a licence is a company that intends to use it, which makes this the highest-signal list in the whole dataset.</p>
-  <div id="feed-summary" class="status" style="border:1px solid var(--rule);border-radius:6px;margin-top:22px"></div>
-  <div class="feed" id="feed"></div>
-  <p class="fs" id="feed-more" style="margin-top:14px"></p>
+  <h2>Licensed this week</h2>
+  <p class="lede" style="margin-top:16px">There is no official archive of the register — the download URL changes on every publish and nobody keeps the history. This project takes its own daily snapshot and diffs it. A company that has just paid for a licence is a company that intends to use it, which makes this the highest-signal list in the whole dataset.</p>
+  <div class="status" id="feed-summary" style="border:1px solid var(--rule);border-radius:11px;margin-top:22px"></div>
+  <div class="feedgrid" id="feed"></div>
+  <p class="fs" id="feed-more" style="margin-top:16px"></p>
 </section>
 
 <section id="limits">
@@ -293,15 +446,16 @@ footer a{color:var(--ink-2)}
   <h2>What this data cannot tell you</h2>
   <div class="col">
   <ul class="tight" style="margin-top:16px">
-    <li><strong>No per-sponsor volumes exist.</strong> The certificate-of-sponsorship datasets were discontinued after year-ending December 2024 and were only ever aggregate. Nobody publishes how many people a named company sponsored. Any product showing you a per-company count is guessing.</li>
+    <li><strong>No per-sponsor volumes exist.</strong> The certificate-of-sponsorship datasets were discontinued after year-ending December 2024 and were only ever aggregate. Nobody publishes how many people a named company sponsored, so any product showing a per-company count is guessing.</li>
     <li><strong>A licence says capability, not intent.</strong> A company can hold one for years and never use it.</li>
     <li><strong>The register carries no company number</strong> — only name and town — so matching it to Companies House is inherently fuzzy.</li>
+    <li><strong>A pin is not an office door.</strong> Coordinates come from geocoding the organisation's name and town, so a blue pin is a best guess at the organisation, accurate to roughly a postcode district; an amber one is only the centre of the town. The postcode shown beside a result is the Companies House registered office, which is separate data and can sit somewhere else entirely — plenty of firms are registered at an accountant's address.</li>
   </ul>
   </div>
   <div class="warn">
     <h3>Removed is not revoked</h3>
     <p>When a sponsor disappears from the register it can mean a voluntary surrender, an expiry, a merger, or simply a rename. The Home Office publishes no revocations list for the worker routes — only aggregate counts of action taken against sponsors.</p>
-    <p>So departures are labelled <strong>removed from register</strong> here and nowhere is a revocation implied. Stating otherwise about a named company would be defamatory if wrong.</p>
+    <p>So departures are labelled <strong>removed from register</strong> here, and nowhere is a revocation implied. Stating otherwise about a named company would be defamatory if wrong.</p>
   </div>
 </section>
 
@@ -309,203 +463,252 @@ footer a{color:var(--ink-2)}
   <p><strong>Sources.</strong> All Open Government Licence v3.0, © Crown copyright.
     <a href="https://www.gov.uk/government/publications/register-of-licensed-sponsors-workers">Register of licensed sponsors: workers</a> ·
     <a href="https://www.gov.uk/government/statistical-data-sets/immigration-system-statistics-data-tables">Immigration system statistics</a>, year ending June 2026 (<span class="mono">Occ_D02</span>, <span class="mono">Exe_D01</span>, <span class="mono">Exe_D02</span>).
-    Register data is fetched fresh at each deploy; snapshot history is kept in the
-    <a href="https://github.com/data-professional-taiyabkhan/UKSponsershipCompany">project repository</a>.</p>
-  <p><strong>Built by <a href="https://autostrata.ai">AutoStrata</a></strong> — a two-person AI engineering studio. Made because one of us was doing this search by hand. The underlying geocoding, which matches sponsors to their Companies House registered address, comes from an earlier version of this project built with Yasjudan ul Islam.</p>
+    Register data is fetched fresh at each deploy; snapshot history lives in the
+    <a href="https://github.com/data-professional-taiyabkhan/UKSponsershipCompany">project repository</a>.
+    Basemap © OpenStreetMap contributors.</p>
+  <p><strong>Built by <a href="https://autostrata.ai">AutoStrata</a></strong> — a two-person AI engineering studio. Made because one of us was doing this search by hand. The geocoding that matches sponsors to their Companies House registered address comes from an earlier version of this project built with Yasjudan ul Islam.</p>
   <p>Independent analysis of public data. Not affiliated with, or endorsed by, the Home Office. Nothing here is immigration advice — check anything that matters against the official register and the Immigration Rules.</p>
 </footer>
 
 </div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 const $=s=>document.querySelector(s), NS='http://www.w3.org/2000/svg';
 const fmt=n=>n.toLocaleString('en-GB');
 const tok=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function el(t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);return e}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 
-/* ---------------- charts (static, render immediately) ---------------- */
+/* ---------------- theme ---------------- */
+const THEME_KEY='uksr-theme';
+function currentTheme(){
+  const set=document.documentElement.getAttribute('data-theme');
+  if(set) return set;
+  return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+}
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  try{localStorage.setItem(THEME_KEY,t)}catch(e){}
+  swapTiles();
+}
+try{const s=localStorage.getItem(THEME_KEY); if(s) document.documentElement.setAttribute('data-theme',s)}catch(e){}
+$('#themebtn').addEventListener('click',()=>applyTheme(currentTheme()==='dark'?'light':'dark'));
+
+/* ---------------- hero contour backdrop ----------------
+   Drawn ONCE to an oversized canvas and drifted with a CSS transform. The
+   first version recomputed ~60k trig-heavy field samples every frame, which
+   pegged the main thread and starved every other animation on the page. A
+   decorative background is never worth a frame budget. */
 (function(){
+  const cv=$('#contour'), ctx=cv.getContext('2d');
+  function field(x,y){
+    return Math.sin(x*0.0062)*Math.cos(y*0.0085)
+         + Math.sin((x+y)*0.0037)*0.8
+         + Math.cos(x*0.0021-y*0.0029)*0.6;
+  }
+  function draw(){
+    // Measure the PARENT, never the canvas: sizing from its own box and
+    // scaling by 1.5 compounds on every redraw.
+    const host=cv.parentElement.getBoundingClientRect();
+    const d=Math.min(devicePixelRatio||1,2);
+    const w=Math.max(1,Math.round(host.width*1.5)), h=Math.max(1,Math.round(host.height));
+    cv.width=w*d; cv.height=h*d;
+    cv.style.width=(w)+'px'; cv.style.height=h+'px';
+    ctx.setTransform(d,0,0,d,0,0);
+    ctx.clearRect(0,0,w,h);
+    ctx.strokeStyle=tok('--contour'); ctx.lineWidth=1;
+    // One stroke per level, walked left to right. Connecting crossings within a
+    // column instead of across columns is what turns contours into vertical
+    // streaks — the line has to follow the level across x.
+    const step=7;
+    for(let level=-2.4;level<=2.4;level+=0.4){
+      ctx.beginPath();
+      let pen=false;
+      for(let x=0;x<=w;x+=step){
+        let hit=null, prev=field(x,0);
+        for(let y=step;y<=h;y+=step){
+          const v=field(x,y);
+          if((prev<level&&v>=level)||(prev>=level&&v<level)){
+            // linear interpolation between the two samples that straddle it
+            hit=y-step+step*((level-prev)/(v-prev));
+            break;
+          }
+          prev=v;
+        }
+        if(hit==null){ pen=false; continue }
+        if(!pen){ ctx.moveTo(x,hit); pen=true } else ctx.lineTo(x,hit);
+      }
+      ctx.stroke();
+    }
+  }
+  let tid;
+  const redraw=()=>{clearTimeout(tid);tid=setTimeout(draw,180)};
+  addEventListener('resize',redraw);
+  // Re-ink on theme change: the stroke colour is a token.
+  new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change',redraw);
+  draw();
+})();
+
+/* ---------------- counters ---------------- */
+(function(){
+  const els=[...document.querySelectorAll('[data-count]')];
+  for(const e of els){
+    const target=parseFloat(e.dataset.count), dp=+(e.dataset.dp||0), pre=e.dataset.prefix||'';
+    const show=v=>e.textContent=pre+(dp?v.toFixed(dp):fmt(Math.round(v)));
+    // Write the real figure first. requestAnimationFrame is throttled in a
+    // background tab, so a count-up that starts there would otherwise leave
+    // the number sitting at zero until the tab is focused — a page that lies
+    // while nobody is looking at it.
+    show(target);
+    if(REDUCED||document.hidden) continue;
+    const dur=1100, t0=performance.now();
+    const tick=now=>{
+      const p=Math.min(1,(now-t0)/dur);
+      show(target*(1-Math.pow(1-p,3)));
+      if(p<1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+})();
+
+/* ---------------- charts ---------------- */
+function animPath(p,dur){
+  if(REDUCED) return;
+  const len=p.getTotalLength();
+  p.style.strokeDasharray=len; p.style.strokeDashoffset=len;
+  p.animate([{strokeDashoffset:len},{strokeDashoffset:0}],
+    {duration:dur,easing:'cubic-bezier(.3,.7,.3,1)',fill:'forwards'});
+}
+function animBar(r,y,h,delay){
+  if(REDUCED) return;
+  r.animate([{transform:`translateY(${h}px) scaleY(0)`},{transform:'none'}],
+    {duration:620,delay,easing:'cubic-bezier(.22,.68,.36,1)',fill:'backwards'});
+}
+
+function chartCollapse(){
   const q=["2021 Q4","2022 Q1","2022 Q2","2022 Q3","2022 Q4","2023 Q1","2023 Q2","2023 Q3","2023 Q4","2024 Q1","2024 Q2","2024 Q3","2024 Q4","2025 Q1","2025 Q2","2025 Q3","2025 Q4","2026 Q1","2026 Q2"];
   const v=[66898,80522,98283,121487,141825,169169,189097,208062,209846,184108,159685,115803,84585,71059,58596,51648,45388,39876,33941];
-  const s=$('#c1'),L=66,R=902,T=34,B=292,MAX=220000;
+  const s=$('#c1'); s.textContent='';
+  const L=66,R=902,T=34,B=292,MAX=220000;
   const x=i=>L+i*(R-L)/(v.length-1), y=n=>B-(n/MAX)*(B-T);
   [0,50000,100000,150000,200000].forEach(g=>{s.appendChild(el('line',{x1:L,x2:R,y1:y(g),y2:y(g),class:'gl'}));
     const t=el('text',{x:L-10,y:y(g)+4,class:'axl','text-anchor':'end'});t.textContent=g?fmt(g/1000)+'k':'0';s.appendChild(t)});
   [[9,'Mar–Apr 2024'],[15,'22 Jul 2025']].forEach(([i,lab])=>{
-    s.appendChild(el('line',{x1:x(i),x2:x(i),y1:T-4,y2:B,stroke:tok('--ink-3'),'stroke-width':1,'stroke-dasharray':'3 4','stroke-opacity':'.65'}));
+    s.appendChild(el('line',{x1:x(i),x2:x(i),y1:T-4,y2:B,stroke:tok('--ink-3'),'stroke-width':1,'stroke-dasharray':'3 4','stroke-opacity':'.6'}));
     const t=el('text',{x:x(i)+6,y:T+8,class:'axl',fill:tok('--ink-3')});t.textContent=lab;s.appendChild(t)});
   const pts=v.map((n,i)=>[x(i),y(n)]);
-  s.appendChild(el('path',{d:`M${L},${B} `+pts.map(p=>`L${p[0]},${p[1]}`).join(' ')+` L${R},${B} Z`,fill:tok('--s1-fill'),stroke:'none'}));
-  s.appendChild(el('path',{d:'M'+pts.map(p=>p.join(',')).join(' L'),fill:'none',stroke:tok('--s1'),'stroke-width':2.5,'stroke-linejoin':'round','stroke-linecap':'round'}));
+  const area=el('path',{d:`M${L},${B} `+pts.map(p=>`L${p[0]},${p[1]}`).join(' ')+` L${R},${B} Z`,fill:tok('--s1-soft'),stroke:'none'});
+  s.appendChild(area);
+  if(!REDUCED) area.animate([{opacity:0},{opacity:1}],{duration:900,delay:400,fill:'backwards'});
+  const line=el('path',{d:'M'+pts.map(p=>p.join(',')).join(' L'),fill:'none',stroke:tok('--s1'),
+    'stroke-width':2.6,'stroke-linejoin':'round','stroke-linecap':'round'});
+  s.appendChild(line); animPath(line,1500);
   [[8,'209,846'],[18,'33,941']].forEach(([i,lab])=>{
-    s.appendChild(el('circle',{cx:x(i),cy:y(v[i]),r:5,fill:tok('--s1'),stroke:tok('--surface'),'stroke-width':2}));
-    const t=el('text',{x:x(i)-8,y:y(v[i])-14,class:'dlab',fill:tok('--s1'),'text-anchor':'end'});t.textContent=lab;s.appendChild(t)});
+    const c=el('circle',{cx:x(i),cy:y(v[i]),r:5,fill:tok('--s1'),stroke:tok('--surface'),'stroke-width':2});
+    s.appendChild(c);
+    const t=el('text',{x:x(i)-8,y:y(v[i])-14,class:'dlab',fill:tok('--s1'),'text-anchor':'end'});t.textContent=lab;s.appendChild(t);
+    if(!REDUCED){[c,t].forEach(n=>n.animate([{opacity:0},{opacity:1}],{duration:400,delay:1400,fill:'backwards'}))}
+  });
   ['2021 Q4','2022 Q4','2023 Q4','2024 Q4','2025 Q4','2026 Q2'].forEach(lb=>{
     const i=q.indexOf(lb);const t=el('text',{x:x(i),y:B+22,class:'axl','text-anchor':'middle'});t.textContent=lb;s.appendChild(t)});
-  const c=el('text',{x:L,y:326,class:'axl',fill:tok('--ink-3')});c.textContent='year ending →';s.appendChild(c);
-})();
-(function(){
+  const cap=el('text',{x:L,y:326,class:'axl',fill:tok('--ink-3')});cap.textContent='year ending →';s.appendChild(cap);
+}
+
+function chartDoors(){
   const yrs=[2021,2022,2023,2024,2025], A=[66898,141825,209846,84585,45388], Bv=[13878,43946,39348,47104,41362];
-  const s=$('#c2'),L=66,R=902,T=40,B=288,MAX=220000;
+  const s=$('#c2'); s.textContent='';
+  const L=66,R=902,T=40,B=288,MAX=220000;
   const step=(R-L)/yrs.length, bw=Math.min(58,step*0.3), gap=8, y=n=>B-(n/MAX)*(B-T);
   [0,50000,100000,150000,200000].forEach(g=>{s.appendChild(el('line',{x1:L,x2:R,y1:y(g),y2:y(g),class:'gl'}));
     const t=el('text',{x:L-10,y:y(g)+4,class:'axl','text-anchor':'end'});t.textContent=g?fmt(g/1000)+'k':'0';s.appendChild(t)});
   yrs.forEach((yr,i)=>{const cx=L+step*i+step/2;
-    [[A[i],tok('--s1'),-1],[Bv[i],tok('--s2'),1]].forEach(([val,col,side])=>{
+    [[A[i],tok('--s1'),-1],[Bv[i],tok('--s2'),1]].forEach(([val,col,side],j)=>{
       const bx=cx+side*(gap/2)+(side<0?-bw:0), by=y(val), bh=B-by;
-      s.appendChild(el('rect',{x:bx,y:by,width:bw,height:Math.max(bh,2),fill:col,rx:4,ry:4}));
+      const r=el('rect',{x:bx,y:by,width:bw,height:Math.max(bh,2),fill:col,rx:4,ry:4});
+      s.appendChild(r); animBar(r,by,bh,120*i+60*j);
       s.appendChild(el('rect',{x:bx,y:B-Math.min(bh,5),width:bw,height:Math.min(bh,5),fill:col}));
-      const t=el('text',{x:bx+bw/2,y:by-9,class:'dlab',fill:col,'text-anchor':'middle'});t.textContent=fmt(val);s.appendChild(t)});
+      const t=el('text',{x:bx+bw/2,y:by-9,class:'dlab',fill:col,'text-anchor':'middle'});t.textContent=fmt(val);s.appendChild(t);
+      if(!REDUCED) t.animate([{opacity:0},{opacity:1}],{duration:300,delay:120*i+60*j+500,fill:'backwards'});
+    });
     const t=el('text',{x:cx,y:B+23,class:'axl','text-anchor':'middle'});t.textContent=yr;s.appendChild(t)});
   const r=el('text',{x:R,y:326,class:'axl',fill:tok('--ink-3'),'text-anchor':'end'});
   r.textContent='ratio 2021: 4.8×  →  2025: 1.1×';s.appendChild(r);
-})();
-(function(){
+}
+
+function chartIT(){
   const yrs=['2021','2022','2023','2024','2025','2026'], v=[9289,15923,9023,6266,5005,2075], sh=[13.9,11.2,4.3,7.4,11.0,14.1];
-  const s=$('#c3'),L=66,R=902,T=54,B=262,MAX=17000;
+  const s=$('#c3'); s.textContent='';
+  const L=66,R=902,T=54,B=262,MAX=17000;
   const step=(R-L)/yrs.length, bw=Math.min(74,step*0.5), y=n=>B-(n/MAX)*(B-T);
   [0,5000,10000,15000].forEach(g=>{s.appendChild(el('line',{x1:L,x2:R,y1:y(g),y2:y(g),class:'gl'}));
     const t=el('text',{x:L-10,y:y(g)+4,class:'axl','text-anchor':'end'});t.textContent=g?fmt(g/1000)+'k':'0';s.appendChild(t)});
   yrs.forEach((yr,i)=>{const cx=L+step*i+step/2, bx=cx-bw/2, by=y(v[i]), bh=B-by;
-    s.appendChild(el('rect',{x:bx,y:by,width:bw,height:bh,fill:tok('--s1'),rx:4,ry:4}));
+    const r=el('rect',{x:bx,y:by,width:bw,height:bh,fill:tok('--s1'),rx:4,ry:4});
+    s.appendChild(r); animBar(r,by,bh,90*i);
     s.appendChild(el('rect',{x:bx,y:B-5,width:bw,height:5,fill:tok('--s1')}));
     const n=el('text',{x:cx,y:by-11,class:'dlab',fill:tok('--ink-2'),'text-anchor':'middle'});n.textContent=fmt(v[i]);s.appendChild(n);
     const p=el('text',{x:cx,y:by-30,class:'dlab',fill:tok('--s2'),'text-anchor':'middle','font-weight':'600','font-size':'14'});p.textContent=sh[i]+'%';s.appendChild(p);
+    if(!REDUCED)[n,p].forEach(e2=>e2.animate([{opacity:0},{opacity:1}],{duration:300,delay:90*i+500,fill:'backwards'}));
     const t=el('text',{x:cx,y:B+23,class:'axl','text-anchor':'middle'});t.textContent=yr+(yr==='2026'?' H1':'');s.appendChild(t)});
   const k=el('text',{x:L,y:26,class:'axl',fill:tok('--s2'),'font-weight':'600'});k.textContent='% = IT share of all sponsored work grants';s.appendChild(k);
   const k2=el('text',{x:L,y:44,class:'axl',fill:tok('--ink-3')});k2.textContent='bars = IT grants';s.appendChild(k2);
-})();
+}
+function drawCharts(){chartCollapse();chartDoors();chartIT()}
+drawCharts();
 
-/* ---------------- register search ---------------- */
-let DATA=null, ORGS=[], LIMIT=250;
+/* ---------------- register ---------------- */
+let DATA=null, ORGS=[], OUTCODES=new Map(), LIMIT=250;
+let ORIGIN=null;               // {lat,lng,label} when a distance search is on
+const MARKER_CAP=1200;
+const UK_BOUNDS=L.latLngBounds([49.9,-8.2],[59.4,1.9]);
+let map=null, layer=null, tileLayer=null, meMarker=null;
 
 function parseRows(payload){
   const out=[], lines=payload.rows.split('\n');
   for(let i=0;i<lines.length;i++){
     const p=lines[i].split('\t');
     if(p.length<5) continue;
-    out.push({n:p[0], t:p[1], c:p[2],
+    const pc=p[7]||'';
+    const o={n:p[0], t:p[1], c:p[2],
       g:p[3]?p[3].split(',').map(Number):[],
       r:p[4]?p[4].split(',').map(Number):[],
-      lat:p[5]?+p[5]:null, lng:p[6]?+p[6]:null, pc:p[7]||'', prec:+(p[8]||0),
-      s:(p[0]+' '+p[1]+' '+(p[7]||'')).toLowerCase()});
+      lat:p[5]?+p[5]:null, lng:p[6]?+p[6]:null, pc, prec:+(p[8]||0),
+      s:(p[0]+' '+p[1]+' '+pc).toLowerCase()};
+    out.push(o);
+    // Outward code centroids let someone run a distance search from a typed
+    // postcode without sharing their location, and without a geocoding API.
+    if(pc && o.lat!=null){
+      const oc=pc.split(' ')[0];
+      let a=OUTCODES.get(oc); if(!a){a={la:[],ln:[]};OUTCODES.set(oc,a)}
+      a.la.push(o.lat); a.ln.push(o.lng);
+    }
   }
+  // Median, not mean. A registered office and the town the register lists for
+  // the same firm often disagree, so a handful of far-away points drag a mean
+  // right out of the district: RG1's mean lands 22 km from Reading, its median
+  // lands on the town centre.
+  const mid=a=>{a.sort((x,y)=>x-y);const h=a.length>>1;
+    return a.length%2?a[h]:(a[h-1]+a[h])/2};
+  for(const [k,a] of OUTCODES) OUTCODES.set(k,{lat:mid(a.la),lng:mid(a.ln),n:a.la.length});
   return out;
 }
 
-/* ---- map ---------------------------------------------------------------
-   Plotting 127,000 pins is what makes most sponsor maps useless, so the map
-   draws the current query, not the whole register: individual markers while
-   the result set is small enough to read, town-level circles sized by count
-   when it isn't. ---------------------------------------------------------*/
-const MARKER_CAP=1200;
-const UK_BOUNDS=L.latLngBounds([49.9,-8.2],[59.4,1.9]);
-let map=null, layer=null;
-
-function initMap(){
-  if(map||typeof L==='undefined') return;
-  map=L.map('map',{scrollWheelZoom:false,attributionControl:true});
-  map.fitBounds(UK_BOUNDS,{padding:[12,12]});
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-    maxZoom:18, attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
-  map.on('click',()=>map.scrollWheelZoom.enable());
-  layer=L.layerGroup().addTo(map);
-
-  // Leaflet caches the container size at init. If the map is laid out while
-  // hidden or the window is resized, that cached size is wrong and tiles stop
-  // loading — so recompute whenever the element's box actually changes.
-  const nudge=()=>map&&map.invalidateSize({animate:false});
-  if('ResizeObserver' in window){
-    let w=0,h=0;
-    new ResizeObserver(es=>{
-      const r=es[0].contentRect;
-      if(Math.abs(r.width-w)>1||Math.abs(r.height-h)>1){w=r.width;h=r.height;nudge()}
-    }).observe($('#map'));
-  }
-  addEventListener('resize',()=>{clearTimeout(initMap._t);initMap._t=setTimeout(nudge,150)});
+const R_EARTH=6371;
+function distKm(aLat,aLng,bLat,bLng){
+  const p=Math.PI/180, dLat=(bLat-aLat)*p, dLng=(bLng-aLng)*p;
+  const s=Math.sin(dLat/2)**2+Math.cos(aLat*p)*Math.cos(bLat*p)*Math.sin(dLng/2)**2;
+  return 2*R_EARTH*Math.asin(Math.sqrt(s));
 }
 
-function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
-
-function drawMap(hits){
-  if(!map) return;
-  layer.clearLayers();
-  const placed=hits.filter(o=>o.lat!=null);
-  $('#geostat').textContent =
-    `${fmt(placed.length)} of ${fmt(hits.length)} shown on map · `+
-    `${fmt(placed.filter(o=>o.prec===2).length)} at registered address`;
-
-  if(!placed.length){ map.fitBounds(UK_BOUNDS,{padding:[12,12]}); return; }
-
-  if(placed.length<=MARKER_CAP){
-    for(const o of placed){
-      const exact=o.prec===2;
-      const m=L.circleMarker([o.lat,o.lng],{
-        radius:exact?5:4, weight:1.5,
-        color:exact?tok('--s1'):tok('--s2'),
-        fillColor:exact?tok('--s1'):tok('--s2'),
-        fillOpacity:exact?.75:.4});
-      const routes=o.r.map(i=>DATA.routes[i]).join(', ');
-      m.bindPopup(
-        `<h4>${esc(o.n)}</h4>`+
-        `<div class="addr">${esc(o.t)}${o.c?' · '+esc(o.c):''}${o.pc?' · '+esc(o.pc):''}</div>`+
-        `<div class="addr" style="margin-top:6px">${esc(routes)}</div>`+
-        (exact?'':'<div class="approx">town centre — exact address not matched</div>'));
-      layer.addLayer(m);
-    }
-  } else {
-    // Aggregate by town so the shape of the data survives at national scale.
-    const by=new Map();
-    for(const o of placed){
-      const k=o.t.toUpperCase();
-      let a=by.get(k);
-      if(!a){a={n:0,lat:0,lng:0,town:o.t};by.set(k,a)}
-      a.n++; a.lat+=o.lat; a.lng+=o.lng;
-    }
-    const max=Math.max(...[...by.values()].map(a=>a.n));
-    for(const a of by.values()){
-      const r=4+18*Math.sqrt(a.n/max);
-      const m=L.circleMarker([a.lat/a.n,a.lng/a.n],{
-        radius:r, weight:1, color:tok('--s1'),
-        fillColor:tok('--s1'), fillOpacity:.35});
-      m.bindPopup(`<h4>${esc(a.town)}</h4><div class="addr">${fmt(a.n)} matching sponsors</div>`);
-      layer.addLayer(m);
-    }
-  }
-
-  fitToResults(placed);
-}
-
-/* Frame the answer. A map that stays at national zoom while you search one
-   town is decoration; but a plain fitBounds is worse, because a couple of
-   registered offices in the wrong county drag the view back out to the whole
-   country. So fit the 2nd-98th percentile of the results and let the genuine
-   outliers sit off-screen — they are still in the table. */
-function fitToResults(placed){
-  if(placed.length>MARKER_CAP){
-    map.fitBounds(UK_BOUNDS,{padding:[12,12],animate:false});
-    return;
-  }
-  const lats=placed.map(o=>o.lat).sort((a,b)=>a-b);
-  const lngs=placed.map(o=>o.lng).sort((a,b)=>a-b);
-  const at=(arr,p)=>arr[Math.min(arr.length-1,Math.max(0,Math.round((arr.length-1)*p)))];
-  const pad=placed.length<4?0:0.02;
-  const b=L.latLngBounds(
-    [at(lats,pad), at(lngs,pad)],
-    [at(lats,1-pad), at(lngs,1-pad)]);
-  if(b.isValid()){
-    map.fitBounds(b,{padding:[30,30],maxZoom:placed.length===1?14:12,animate:false});
-  }
-}
-
-function render(){
-  if(!DATA) return;
+function query(){
   const q=$('#q').value.trim().toLowerCase();
   const routeSel=$('#route').value, ratingSel=$('#rating').value;
-  const extOnly=$('#external').checked;
+  const extOnly=$('#external')?.checked!==false;
   const nonExt=DATA.non_external;
   const rIdx=routeSel===''?-1:Number(routeSel);
+  const radius=ORIGIN?+$('#radius').value:0;
 
   const hits=[];
   for(const o of ORGS){
@@ -514,37 +717,54 @@ function render(){
     if(extOnly && !o.r.some(i=>!nonExt[i])) continue;
     if(ratingSel){
       const has=o.g.some(i=>{const s=DATA.ratings[i]||'';
-        return ratingSel==='A' ? /\(A/.test(s) : /\(B rating\)/.test(s);});
+        return ratingSel==='A' ? /\(A/.test(s) : /\(B rating\)/.test(s)});
       if(!has) continue;
+    }
+    if(ORIGIN){
+      if(o.lat==null) continue;
+      const d=distKm(ORIGIN.lat,ORIGIN.lng,o.lat,o.lng);
+      if(d>radius) continue;
+      o._d=d;
     }
     hits.push(o);
   }
+  if(ORIGIN) hits.sort((a,b)=>a._d-b._d);
+  return hits;
+}
 
+function render(){
+  if(!DATA) return;
+  const hits=query();
   const tb=$('#rows'); tb.textContent='';
+  $('#th3').textContent = ORIGIN ? 'Distance · routes' : 'Routes & rating';
+
   if(!hits.length){
     const tr=document.createElement('tr');
-    tr.innerHTML='<td colspan="3" class="empty">No sponsors match those filters.</td>';
-    tb.appendChild(tr);
+    const td=document.createElement('td'); td.colSpan=3; td.className='empty';
+    td.innerHTML='<b>Nothing matches those filters.</b>'+
+      (ORIGIN?'Try a wider radius, or clear the distance search.':'Try a different town, or clear the route filter.');
+    tr.appendChild(td); tb.appendChild(tr);
   } else {
     const frag=document.createDocumentFragment();
     for(const o of hits.slice(0,LIMIT)){
       const tr=document.createElement('tr');
       const td1=document.createElement('td');
-      td1.className='orgname'; td1.textContent=o.n;
+      const nm=document.createElement('div'); nm.className='orgname'; nm.textContent=o.n; td1.appendChild(nm);
+      if(o.prec===1){const s=document.createElement('div');s.className='pcode';s.textContent='town-level location';td1.appendChild(s)}
+
       const td2=document.createElement('td');
-      td2.className='town';
-      td2.textContent=o.t + (o.c?' · '+o.c:'');
-      if(o.pc){
-        const pc=document.createElement('div');
-        pc.className='mono'; pc.style.cssText='font-size:.76rem;color:var(--ink-3);margin-top:2px';
-        pc.textContent=o.pc; td2.appendChild(pc);
-      }
+      const loc=document.createElement('div'); loc.className='sub';
+      loc.textContent=o.t+(o.c?' · '+o.c:''); td2.appendChild(loc);
+      if(o.pc){const pc=document.createElement('div');pc.className='pcode';pc.textContent=o.pc;td2.appendChild(pc)}
+
       const td3=document.createElement('td');
+      if(ORIGIN){const d=document.createElement('div');d.className='dist';
+        d.textContent=(o._d<10?o._d.toFixed(1):Math.round(o._d))+' km';td3.appendChild(d)}
       for(const i of o.r){
         const sp=document.createElement('span');
-        sp.className='pill'+(nonExt[i]?' no':'');
+        sp.className='pill'+(nonExtOf(i)?' no':'');
         sp.textContent=DATA.routes[i];
-        if(nonExt[i]) sp.title='Intra-company or closed route — not open to an outside applicant';
+        if(nonExtOf(i)) sp.title='Intra-company or closed route — not open to an outside applicant';
         td3.appendChild(sp);
       }
       if(o.g.some(i=>/\(B rating\)/.test(DATA.ratings[i]||''))){
@@ -558,20 +778,207 @@ function render(){
   }
 
   drawMap(hits);
-  const shown=Math.min(hits.length,LIMIT);
-  const n=hits.length;
-  $('#status').innerHTML =
-    `<b>${fmt(n)}</b> ${n===1?'employer matches':'employers match'}` +
-    (n>LIMIT?` · showing ${fmt(shown)} · refine to see more`:'') +
+  const n=hits.length, shown=Math.min(n,LIMIT);
+  $('#statustext').innerHTML =
+    (ORIGIN?`<b>${fmt(n)}</b> within ${$('#radius').value} km of ${esc(ORIGIN.label)}`
+           :`<b>${fmt(n)}</b> ${n===1?'employer matches':'employers match'}`)+
+    (n>LIMIT?` · showing nearest ${fmt(shown)}`.replace('nearest ',ORIGIN?'nearest ':'first '):'')+
     ` · <b>${fmt(ORGS.length)}</b> on the register`;
+  $('#csvbtn').hidden = !n;
+  $('#resetbtn').hidden = !(ORIGIN || $('#q').value || $('#rating').value ||
+                            $('#route').value!==String(DEFAULT_ROUTE));
+  window.__hits=hits;
+}
+function nonExtOf(i){return DATA.non_external[i]}
+
+/* ---------------- map ----------------
+   The map draws the current query, not the register. 127,000 pins is what
+   makes most sponsor maps useless: individual markers while the result set is
+   small enough to read, town-level circles sized by count when it is not. */
+/* OpenStreetMap's own tiles: free, no API key, no watermark. CARTO's basemap
+   CDN now returns key-required tiles, so it cannot be used unauthenticated.
+   OSM ships only a light style, so dark mode filters the tiles in CSS rather
+   than pulling a second tile set. */
+const TILES='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+function swapTiles(){
+  const dark=currentTheme()==='dark';
+  const pane=document.querySelector('#map .leaflet-tile-pane');
+  if(pane) pane.style.filter = dark
+    ? 'invert(1) hue-rotate(180deg) brightness(.92) contrast(.88) saturate(.55)'
+    : '';
+}
+function initMap(){
+  if(map||typeof L==='undefined') return;
+  // preferCanvas draws every vector into one canvas. With thousands of town
+  // circles the SVG renderer creates thousands of DOM nodes and the page dies.
+  map=L.map('map',{scrollWheelZoom:false,attributionControl:true,zoomControl:true,preferCanvas:true});
+  map.fitBounds(UK_BOUNDS,{padding:[14,14]});
+  tileLayer=L.tileLayer(TILES,{maxZoom:19,
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+  swapTiles();
+  map.on('click',()=>map.scrollWheelZoom.enable());
+  layer=L.layerGroup().addTo(map);
+  // Leaflet caches container size at init; if the element is laid out while
+  // hidden, or the window resizes, that cached size is wrong and tiles stop.
+  const nudge=()=>map&&map.invalidateSize({animate:false});
+  if('ResizeObserver' in window){
+    let w=0,h=0;
+    new ResizeObserver(es=>{const r=es[0].contentRect;
+      if(Math.abs(r.width-w)>1||Math.abs(r.height-h)>1){w=r.width;h=r.height;nudge()}
+    }).observe($('#map'));
+  }
+  addEventListener('resize',()=>{clearTimeout(initMap._t);initMap._t=setTimeout(nudge,150)});
 }
 
+function drawMap(hits){
+  if(!map) return;
+  layer.clearLayers();
+  const placed=hits.filter(o=>o.lat!=null);
+  $('#geostat').textContent = placed.length
+    ? `${fmt(placed.length)} of ${fmt(hits.length)} on map · ${fmt(placed.filter(o=>o.prec===2).length)} located to the organisation`
+    : 'nothing to place';
+
+  if(ORIGIN){
+    meMarker=L.circleMarker([ORIGIN.lat,ORIGIN.lng],{radius:8,weight:3,color:tok('--s3'),
+      fillColor:tok('--s3'),fillOpacity:.35});
+    meMarker.bindPopup(`<h4>${esc(ORIGIN.label)}</h4><div class="addr">searching outward from here</div>`);
+    layer.addLayer(meMarker);
+    layer.addLayer(L.circle([ORIGIN.lat,ORIGIN.lng],{radius:(+$('#radius').value)*1000,
+      color:tok('--s3'),weight:1,opacity:.5,fillColor:tok('--s3'),fillOpacity:.05}));
+  }
+
+  if(!placed.length){ if(!ORIGIN) map.fitBounds(UK_BOUNDS,{padding:[14,14]}); return }
+
+  if(placed.length<=MARKER_CAP){
+    // Approximate pins first so exact ones sit on top of them.
+    const ordered=[...placed].sort((a,b)=>a.prec-b.prec);
+    ordered.forEach((o,idx)=>{
+      const exact=o.prec===2;
+      const m=L.circleMarker([o.lat,o.lng],{radius:exact?5.5:4.5,weight:1.5,
+        color:exact?tok('--s1'):tok('--s2'),
+        fillColor:exact?tok('--s1'):tok('--s2'),
+        fillOpacity:exact?.8:.4});
+      const routes=o.r.map(i=>`<span class="pill${nonExtOf(i)?' no':''}">${esc(DATA.routes[i])}</span>`).join('');
+      m.bindPopup(
+        `<h4>${esc(o.n)}</h4>`+
+        `<div class="addr">${esc(o.t)}${o.c?' · '+esc(o.c):''}${o.pc?' · '+esc(o.pc):''}</div>`+
+        (o._d!=null&&ORIGIN?`<div class="addr" style="color:var(--s3);font-weight:600;margin-top:4px">${o._d<10?o._d.toFixed(1):Math.round(o._d)} km away</div>`:'')+
+        `<div class="rts">${routes}</div>`+
+        (exact?'':'<div class="approx">town centre — this organisation was not matched individually</div>'));
+      layer.addLayer(m);
+      if(!REDUCED && ordered.length<=300 && m._path){
+        m._path.animate([{opacity:0,transform:'scale(.4)'},{opacity:1,transform:'none'}],
+          {duration:340,delay:Math.min(idx*1.6,420),easing:'cubic-bezier(.22,.68,.36,1)',fill:'backwards'});
+      }
+    });
+  } else {
+    const by=new Map();
+    for(const o of placed){
+      const k=o.t.toUpperCase();
+      let a=by.get(k); if(!a){a={n:0,lat:0,lng:0,town:o.t};by.set(k,a)}
+      a.n++; a.lat+=o.lat; a.lng+=o.lng;
+    }
+    const max=Math.max(...[...by.values()].map(a=>a.n));
+    for(const a of by.values()){
+      const m=L.circleMarker([a.lat/a.n,a.lng/a.n],{radius:4+20*Math.sqrt(a.n/max),
+        weight:1,color:tok('--s1'),fillColor:tok('--s1'),fillOpacity:.32});
+      m.bindPopup(`<h4>${esc(a.town)}</h4><div class="addr">${fmt(a.n)} matching sponsors</div>`);
+      layer.addLayer(m);
+    }
+  }
+  fitToResults(placed);
+}
+
+/* Frame the answer. A plain fitBounds is worse than none: a couple of
+   registered offices in the wrong county drag the view back out to the whole
+   country, so fit the 2nd–98th percentile and let true outliers sit off-screen
+   — they are still in the table. */
+function fitToResults(placed){
+  // Animating the camera re-renders every mark on every frame. Fly only when
+  // there are few enough marks for that to be free.
+  const smooth = !REDUCED && placed.length<=300;
+  const go=(b,opts)=>smooth ? map.flyToBounds(b,{...opts,duration:.7})
+                            : map.fitBounds(b,{...opts,animate:false});
+  if(ORIGIN){
+    // L.circle().getBounds() throws unless the circle is on a map.
+    go(L.latLng(ORIGIN.lat,ORIGIN.lng).toBounds((+$('#radius').value)*2000),{padding:[30,30]});
+    return;
+  }
+  if(placed.length>MARKER_CAP){ go(UK_BOUNDS,{padding:[14,14]}); return }
+  const lats=placed.map(o=>o.lat).sort((a,b)=>a-b), lngs=placed.map(o=>o.lng).sort((a,b)=>a-b);
+  const at=(arr,p)=>arr[Math.min(arr.length-1,Math.max(0,Math.round((arr.length-1)*p)))];
+  const pad=placed.length<4?0:0.02;
+  const b=L.latLngBounds([at(lats,pad),at(lngs,pad)],[at(lats,1-pad),at(lngs,1-pad)]);
+  if(b.isValid()) go(b,{padding:[34,34],maxZoom:placed.length===1?14:12});
+}
+
+/* ---------------- near me ---------------- */
+function setOrigin(lat,lng,label){
+  ORIGIN={lat,lng,label};
+  $('#radwrap').hidden=false;
+  $('#nearbtn').classList.add('on');
+  $('#nearbtn').textContent='◎ '+label;
+  render();
+}
+function clearOrigin(){
+  ORIGIN=null; $('#radwrap').hidden=true;
+  $('#nearbtn').classList.remove('on'); $('#nearbtn').textContent='◎ Near me';
+  render();
+}
+function postcodeOrigin(text){
+  const oc=text.toUpperCase().replace(/\s+/g,' ').trim().split(' ')[0];
+  if(!/^[A-Z]{1,2}\d[A-Z\d]?$/.test(oc)) return null;
+  const hit=OUTCODES.get(oc);
+  return hit ? {lat:hit.lat,lng:hit.lng,label:oc} : null;
+}
+$('#nearbtn').addEventListener('click',()=>{
+  if(ORIGIN){ clearOrigin(); return }
+  // A typed postcode wins: it is explicit, and it needs no permission prompt.
+  const typed=postcodeOrigin($('#q').value);
+  if(typed){ $('#q').value=''; setOrigin(typed.lat,typed.lng,typed.label); return }
+  if(!navigator.geolocation){
+    $('#statustext').innerHTML='This browser cannot share a location. Type a postcode such as <b>RG1</b> and press Near me again.';
+    return;
+  }
+  const btn=$('#nearbtn'); btn.disabled=true; btn.textContent='◎ Locating…';
+  navigator.geolocation.getCurrentPosition(
+    p=>{ btn.disabled=false; setOrigin(p.coords.latitude,p.coords.longitude,'your location') },
+    err=>{ btn.disabled=false; btn.textContent='◎ Near me';
+      $('#statustext').innerHTML= err.code===1
+        ? 'Location permission declined — that is fine. Type a postcode such as <b>RG1</b> and press Near me again.'
+        : 'Could not get a location. Type a postcode such as <b>RG1</b> and press Near me again.';
+    },{enableHighAccuracy:false,timeout:9000,maximumAge:300000});
+});
+$('#radius').addEventListener('change',render);
+
+/* ---------------- CSV export ---------------- */
+$('#csvbtn').addEventListener('click',()=>{
+  const hits=window.__hits||[];
+  const head=['Organisation','Town','County','Postcode','Routes','Ratings','LocationPrecision'];
+  if(ORIGIN) head.push('DistanceKm');
+  const q=v=>`"${String(v??'').replace(/"/g,'""')}"`;
+  const lines=[head.join(',')];
+  for(const o of hits){
+    const row=[o.n,o.t,o.c,o.pc,
+      o.r.map(i=>DATA.routes[i]).join('; '),
+      o.g.map(i=>DATA.ratings[i]).join('; '),
+      o.prec===2?'located to organisation':o.prec===1?'town centroid':'not placed'];
+    if(ORIGIN) row.push(o._d.toFixed(2));
+    lines.push(row.map(q).join(','));
+  }
+  const blob=new Blob(['﻿'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`uk-sponsors-${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a); a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1000);
+});
+
+/* ---------------- load ---------------- */
+let DEFAULT_ROUTE='';
 async function loadRegister(){
   try{
-    const [reg,meta]=await Promise.all([
-      fetch('data/sponsors.json').then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}),
-      fetch('data/meta.json').then(r=>r.ok?r.json():null).catch(()=>null),
-    ]);
+    const reg=await fetch('data/sponsors.json').then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()});
     DATA=reg; ORGS=parseRows(reg);
 
     const sel=$('#route');
@@ -579,26 +986,39 @@ async function loadRegister(){
     sel.innerHTML='<option value="">Any route</option>';
     for(const i of order){
       const o=document.createElement('option');
-      o.value=i; o.textContent=reg.routes[i]+(reg.non_external[i]?' (intra-company)':'');
+      o.value=i; o.textContent=reg.routes[i]+(reg.non_external[i]?' · intra-company':'');
       sel.appendChild(o);
     }
     const sw=reg.routes.indexOf('Skilled Worker');
-    if(sw>=0) sel.value=String(sw);
+    if(sw>=0){ sel.value=String(sw); DEFAULT_ROUTE=sw }
 
-    const d=(meta?.gov_published_at||reg.gov_published_at||'').slice(0,10);
-    $('#p-reg').textContent = d ? `${d} · ${fmt(reg.licence_rows)} licences` : `${fmt(reg.licence_rows)} licences`;
+    // Quick chips for the routes people actually search for.
+    const chips=$('#chips');
+    const want=['Skilled Worker','Health and Care Worker','Scale-up','Global Business Mobility: Senior or Specialist Worker','Creative Worker','International Sportsperson'];
+    const mk=(label,val)=>{
+      const b=document.createElement('button');
+      b.className='chipbtn'; b.type='button'; b.textContent=label; b.dataset.v=val;
+      b.addEventListener('click',()=>{sel.value=val;syncChips();render()});
+      chips.appendChild(b);
+    };
+    mk('All routes','');
+    for(const nm of want){ const i=reg.routes.indexOf(nm); if(i>=0) mk(nm.replace('Global Business Mobility: ','GBM '),String(i)) }
+    window.syncChips=()=>{[...chips.children].forEach(b=>b.classList.toggle('on',b.dataset.v===sel.value))};
+    syncChips();
 
-    const g=reg.geo||{};
-    if(g.exact!=null){
-      $('#p-geo').textContent=`${fmt(g.exact)} at registered address, ${fmt(g.approx)} town-level`;
-    }
     initMap();
     ['#q','#route','#rating','#external'].forEach(s=>{
-      $(s).addEventListener('input',render); $(s).addEventListener('change',render);
+      $(s).addEventListener('input',()=>{syncChips();render()});
+      $(s).addEventListener('change',()=>{syncChips();render()});
+    });
+    $('#resetbtn').addEventListener('click',()=>{
+      $('#q').value=''; $('#rating').value=''; $('#external').checked=true;
+      $('#route').value=String(DEFAULT_ROUTE);
+      syncChips(); clearOrigin();
     });
     render();
   }catch(e){
-    $('#status').textContent='Could not load the register data ('+e.message+'). It is rebuilt on each deploy.';
+    $('#statustext').textContent='Could not load the register ('+e.message+'). It is rebuilt on every deploy.';
   }
 }
 
@@ -606,35 +1026,30 @@ async function loadChanges(){
   try{
     const c=await fetch('data/changes.json').then(r=>r.json());
     const sum=$('#feed-summary'), feed=$('#feed');
-    if(!c.days?.length){
-      sum.textContent='No diffs recorded yet — the daily snapshot starts building history from its first run.';
-      return;
-    }
+    if(!c.days?.length){ sum.textContent='No diffs recorded yet — history starts from the first daily snapshot.'; return }
     const tot=c.days.reduce((a,d)=>({a:a.a+d.added,r:a.r+d.removed,c:a.c+d.rating_changed}),{a:0,r:0,c:0});
-    const from=c.days[0].date, to=c.days[c.days.length-1].date;
     sum.innerHTML=`<b>${fmt(tot.a)}</b> licences added · <b>${fmt(tot.r)}</b> removed · `+
-      `<b>${fmt(tot.c)}</b> rating changes · ${from} to ${to}`;
-    const rows=c.added.slice().reverse().slice(0,60);
+      `<b>${fmt(tot.c)}</b> rating changes · ${c.days[0].date} to ${c.days[c.days.length-1].date}`;
+    const rows=c.added.slice().reverse().slice(0,24);
     const frag=document.createDocumentFragment();
-    for(const r of rows){
-      const d=document.createElement('div'); d.className='frow';
-      d.innerHTML=`<div class="fdate">${r.date}</div>`+
-        `<div><div class="fname"></div><div class="ftown"></div></div>`+
-        `<div><span class="pill"></span></div>`;
-      d.querySelector('.fname').textContent=r.name;
-      d.querySelector('.ftown').textContent=r.town+(r.county?' · '+r.county:'');
-      d.querySelector('.pill').textContent=r.route;
-      frag.appendChild(d);
-    }
+    rows.forEach((r,i)=>{
+      const d=document.createElement('div'); d.className='fcard';
+      const n=document.createElement('div'); n.className='fn'; n.textContent=r.name;
+      const l=document.createElement('div'); l.className='fl'; l.textContent=r.town+(r.county?' · '+r.county:'');
+      const m=document.createElement('div'); m.className='fd';
+      m.innerHTML=`<span class="pill new">${esc(r.route)}</span> ${esc(r.date)}`;
+      d.append(n,l,m); frag.appendChild(d);
+      if(!REDUCED) d.animate([{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'none'}],
+        {duration:420,delay:i*26,easing:'cubic-bezier(.22,.68,.36,1)',fill:'backwards'});
+    });
     feed.appendChild(frag);
     $('#feed-more').textContent=
       `Showing the ${rows.length} most recent additions of ${fmt(c.added.length)} recorded. `+
       `${fmt(tot.r)} licences were removed over the same period — see the note below on why that is not a revocation.`;
-  }catch(e){
-    $('#feed-summary').textContent='Change feed unavailable.';
-  }
+  }catch(e){ $('#feed-summary').textContent='Change feed unavailable.' }
 }
 
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{swapTiles();drawCharts()});
 loadRegister(); loadChanges();
 </script>
 </body>

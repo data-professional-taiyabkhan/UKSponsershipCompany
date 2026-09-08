@@ -6,6 +6,13 @@ matched to their Companies House registered address and geocoded. This turns it
 into two small gzipped tables the Node build can join cheaply:
 
   orgs.tsv.gz   name_key \t town_key \t lat \t lng \t postcode
+
+NOTE ON WHAT THE COORDINATES MEAN: the source file geocoded
+"<organisation name>, <town>, United Kingdom" — NOT the registered address. So a
+point is the geocoder's best guess at the organisation, and the postcode beside
+it is the Companies House registered office, which is separate data and can
+disagree (a firm registered in RG1 may be plotted in the town the register
+lists). Never describe these as address-level coordinates.
   towns.tsv.gz  town_key \t lat \t lng \t n        (median centroid)
 
 Coordinates are stored to 5dp — about a metre, far beyond what a registered
@@ -24,7 +31,7 @@ import pandas as pd
 
 WS = re.compile(r"\s+")
 TRAIL = re.compile(r"[.,;:\-\s]+$")
-POSTCODE = re.compile(r"\b([A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2})\b")
+POSTCODE = re.compile(r"([A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2})")
 
 
 def norm(s) -> str:
@@ -48,7 +55,12 @@ def main() -> int:
 
     g["nk"] = g["Organisation Name"].map(norm)
     g["tk"] = g["Town/City"].map(norm)
-    g["pc"] = g["Full Address"].str.upper().str.extract(POSTCODE, expand=False)
+    # Take the LAST postcode-shaped match: UK addresses put the postcode at the
+    # end, and fragments like "SUITE E2, 2ND FLOOR" match the pattern earlier in
+    # the string.
+    g["pc"] = g["Full Address"].str.upper().map(
+        lambda s: (POSTCODE.findall(s)[-1] if isinstance(s, str) and POSTCODE.findall(s) else None)
+    )
     g["pc"] = g["pc"].fillna("").str.replace(r"\s+", " ", regex=True)
 
     orgs = g.drop_duplicates(subset=["nk", "tk"])[["nk", "tk", "lat", "lng", "pc"]]
