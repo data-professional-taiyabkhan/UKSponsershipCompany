@@ -1,0 +1,304 @@
+{
+ "date": "2026-09-28",
+ "previous_date": "2026-09-25",
+ "counts": {
+  "added": 12,
+  "removed": 23,
+  "rating_changed": 1
+ },
+ "added": [
+  {
+   "key": "ASESA SOLUTIONS LTD|HOLBORN|Skilled Worker",
+   "name": "ASESA Solutions Ltd",
+   "town": "Holborn",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "FRESHCO LOCAL|HEREFORD|Skilled Worker",
+   "name": "FRESHCO LOCAL",
+   "town": "Hereford",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "KITA EARTH LIMITED|LONDON|Skilled Worker",
+   "name": "Kita Earth Limited",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "LANDVUE LIMITED|WEMBLEY|Skilled Worker",
+   "name": "LANDVUE LIMITED",
+   "town": "Wembley",
+   "county": "England",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "MAHAVIR GROUP LTD|DURHAM|Skilled Worker",
+   "name": "MAHAVIR GROUP LTD",
+   "town": "DURHAM",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "PENTAGON GROUP U.K LTD|COVENTRY|Skilled Worker",
+   "name": "PENTAGON GROUP U.K LTD",
+   "town": "Coventry",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "RICHMOE LIMITED|FARNVOROUGH|Skilled Worker",
+   "name": "Richmoe Limited",
+   "town": "Farnvorough",
+   "county": "Hampshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SABRANG INTERNATIONAL LTD|BERKSHIRE|Creative Worker",
+   "name": "SABRANG INTERNATIONAL LTD.",
+   "town": "Berkshire",
+   "county": "",
+   "route": "Creative Worker",
+   "rating": "Temporary Worker (A rating)"
+  },
+  {
+   "key": "SABRANG INTERNATIONAL LTD|BERKSHIRE|Skilled Worker",
+   "name": "SABRANG INTERNATIONAL LTD.",
+   "town": "Berkshire",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "TESSARACT TECHNOLOGIES UK LIMITED|FARNHAM|Global Business Mobility: Senior or Specialist Worker",
+   "name": "Tessaract Technologies UK Limited",
+   "town": "Farnham",
+   "county": "Surrey",
+   "route": "Global Business Mobility: Senior or Specialist Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "TRIMAS PACKAGING LIMITED|LEICESTER|Skilled Worker",
+   "name": "Trimas Packaging Limited",
+   "town": "Leicester",
+   "county": "Leicestershire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ZZN STUDIO LTD|LONDON|Skilled Worker",
+   "name": "ZZN STUDIO LTD",
+   "town": "LONDON",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  }
+ ],
+ "removed": [
+  {
+   "key": "ANGEL1CA LTD|EDGWARE|Skilled Worker",
+   "name": "ANGEL1CA LTD",
+   "town": "Edgware",
+   "county": "London",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ASESA SOLUTIONS LTD|CORBY|Skilled Worker",
+   "name": "ASESA Solutions Ltd",
+   "town": "Corby",
+   "county": "Northamptonshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "FRESHCO LOCAL|BRISTOL|Skilled Worker",
+   "name": "FRESHCO LOCAL",
+   "town": "BRISTOL",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "GD CELLAR LTD|DONCASTER|Skilled Worker",
+   "name": "GD CELLAR LTD",
+   "town": "Doncaster",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "KIDLY LIMITED|WATFORD|Skilled Worker",
+   "name": "KIDLY Limited",
+   "town": "Watford",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "KITA EARTH LIMITED|WORCESTER|Skilled Worker",
+   "name": "Kita Earth Limited",
+   "town": "Worcester",
+   "county": "Worcestershire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "LANDVUE LIMITED|BARKING|Skilled Worker",
+   "name": "LANDVUE LIMITED",
+   "town": "Barking",
+   "county": "England",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "LE SOLEIL ENTERPRISES LIMITED|LONDON|Skilled Worker",
+   "name": "Le Soleil Enterprises Limited",
+   "town": "London",
+   "county": "- select -",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "LIFECOME CARE LIMITED|LONDON|Skilled Worker",
+   "name": "LIFECOME CARE LIMITED",
+   "town": "LONDON",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "MAHAVIR GROUP LTD|NEWCASTLE UPON TYNE|Skilled Worker",
+   "name": "MAHAVIR GROUP LTD",
+   "town": "Newcastle Upon Tyne,",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "PENTAGON GROUP U.K LTD|BARKING|Skilled Worker",
+   "name": "PENTAGON GROUP U.K LTD",
+   "town": "Barking",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "RICHMOE LIMITED|GOSPORT|Skilled Worker",
+   "name": "Richmoe Limited",
+   "town": "Gosport",
+   "county": "Hampshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "RIEKE PACKAGING SYSTEMS LTD|LEICESTER|Skilled Worker",
+   "name": "Rieke Packaging Systems Ltd",
+   "town": "Leicester",
+   "county": "Leicestershire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SABRANG INTERNATIONAL LTD|SLOUGH|Creative Worker",
+   "name": "SABRANG INTERNATIONAL LTD.",
+   "town": "SLOUGH",
+   "county": "Berkshire",
+   "route": "Creative Worker",
+   "rating": "Temporary Worker (A rating)"
+  },
+  {
+   "key": "SABRANG INTERNATIONAL LTD|SLOUGH|Skilled Worker",
+   "name": "SABRANG INTERNATIONAL LTD.",
+   "town": "SLOUGH",
+   "county": "Berkshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "STAR MOTORS AND AUTOS LIMITED|LIVERPOOL|Skilled Worker",
+   "name": "Star Motors and Autos Limited",
+   "town": "Liverpool",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "TESSARACT TECHNOLOGIES UK LIMITED|LONDON|Global Business Mobility: Senior or Specialist Worker",
+   "name": "Tessaract Technologies UK Limited",
+   "town": "London",
+   "county": "Greater London",
+   "route": "Global Business Mobility: Senior or Specialist Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "THIRTYMINS LIMITED|LONDON|Skilled Worker",
+   "name": "Thirtymins Limited",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "VENEZIA HARTLEPOOL LTD|HARTLEPOOL|Skilled Worker",
+   "name": "Venezia Hartlepool Ltd",
+   "town": "Hartlepool",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "VINOTH & SONS STORES LTD|NORWICH|Skilled Worker",
+   "name": "VINOTH & SONS STORES LTD",
+   "town": "Norwich",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ZALLYCAKES AND EDIBLES LIMITED|NOTTINGHAM|Skilled Worker",
+   "name": "Zallycakes and Edibles Limited",
+   "town": "Nottingham",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ZENTIA LTD|GATESHEAD|Skilled Worker",
+   "name": "Zentia Ltd",
+   "town": "Gateshead",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ZZN STUDIO LTD|HAMPTON|Skilled Worker",
+   "name": "ZZN STUDIO LTD",
+   "town": "HAMPTON",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  }
+ ],
+ "rating_changed": [
+  {
+   "key": "A BETTER CAREHOME LTD T/AS BRETON COURT|TENTERDEN|Skilled Worker",
+   "name": "A Better Carehome Ltd T/As Breton Court",
+   "town": "Tenterden",
+   "county": "Kent",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)",
+   "rating_before": "Worker (B rating)"
+  }
+ ]
+}
