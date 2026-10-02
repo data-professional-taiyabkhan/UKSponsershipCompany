@@ -1,0 +1,993 @@
+{
+ "date": "2026-10-02",
+ "previous_date": "2026-10-01",
+ "counts": {
+  "added": 60,
+  "removed": 60,
+  "rating_changed": 2
+ },
+ "added": [
+  {
+   "key": "AESN CARE LIMITED|UXBRIDGE|Skilled Worker",
+   "name": "AESN Care Limited",
+   "town": "Uxbridge",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "AIDA DAINYTE T/A STAR ANISE RESTAURANT & BAR|CARLISLE|Skilled Worker",
+   "name": "Aida Dainyte T/A Star Anise Restaurant & Bar",
+   "town": "Carlisle",
+   "county": "Cumbria",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "AIR CHARTER SCOTLAND LIMITED|GLASGOW|Skilled Worker",
+   "name": "Air Charter Scotland Limited",
+   "town": "Glasgow",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ANANTA CARE LIMITED T/A YSGUBORWEN CARE HOME|ABERDARE|Skilled Worker",
+   "name": "Ananta Care Limited T/A YSguborwen Care Home",
+   "town": "Aberdare",
+   "county": "Rhondda Cynon Taf",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ARDACH HEALTH CENTRE|BUCKIE|Skilled Worker",
+   "name": "Ardach Health Centre",
+   "town": "Buckie",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ARTISAN ONE PLUS LTD|LONDON|Skilled Worker",
+   "name": "ARTISAN ONE PLUS LTD",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "BRAIME PRESSINGS LTD|LEEDS|Skilled Worker",
+   "name": "Braime Pressings Ltd",
+   "town": "LEEDS",
+   "county": "West Yorkshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "CARE DIRECT SALFORD LTD|MANCHESTER|Skilled Worker",
+   "name": "Care Direct Salford Ltd",
+   "town": "Manchester",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "COMMUNITY POWER SOLUTIONS LTD|BRISTOL|Skilled Worker",
+   "name": "Community Power Solutions Ltd",
+   "town": "Bristol",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "CREATIVE EDUCATION TRUST|MILTON KEYNES|Skilled Worker",
+   "name": "Creative Education Trust",
+   "town": "Milton Keynes",
+   "county": "Buckinghamshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "DAININ BC LIMITED|GLASGOW|Skilled Worker",
+   "name": "DAININ BC LIMITED",
+   "town": "Glasgow",
+   "county": "Scotland",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "DCC 2 LTD|LONDON|Skilled Worker",
+   "name": "DCC 2 LTD",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "DIMALNOX UK LIMITED|LONDON|Global Business Mobility: Senior or Specialist Worker",
+   "name": "Dimalnox UK Limited",
+   "town": "London",
+   "county": "",
+   "route": "Global Business Mobility: Senior or Specialist Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "DIMALNOX UK LIMITED|LONDON|Skilled Worker",
+   "name": "Dimalnox UK Limited",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "DOMU BRANDS LIMITED|MANCHESTER|Skilled Worker",
+   "name": "Domu Brands Limited",
+   "town": "Manchester",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ECOSURETY LTD|BRISTOL|Skilled Worker",
+   "name": "Ecosurety Ltd",
+   "town": "Bristol",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "EDDY FOOD CENTRE LTD|DUNSTABLE|Skilled Worker",
+   "name": "EDDY FOOD CENTRE LTD",
+   "town": "DUNSTABLE",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "EMPACTIS LIMITED|CHICHESTER|Skilled Worker",
+   "name": "Empactis Limited",
+   "town": "Chichester",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ESC CONSULTANCY|GERRARDS CROSS|Skilled Worker",
+   "name": "ESC CONSULTANCY",
+   "town": "Gerrards Cross",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "EVERYTHING CONNECTED ENTERPRISES LIMITED|CAMBRIDGE|Skilled Worker",
+   "name": "Everything Connected Enterprises Limited",
+   "town": "Cambridge",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "FIRSTCLASS MANAGERIAL LIMITED|ASHTON-UNDER-LYNE|Skilled Worker",
+   "name": "Firstclass Managerial Limited",
+   "town": "Ashton-Under-Lyne",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "FLETCHERS SOLICITORS LIMITED|MANCHESTER|Skilled Worker",
+   "name": "Fletchers Solicitors Limited",
+   "town": "Manchester",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "FORM FURNITURE SOLUTIONS LTD|MANCHESTER|Skilled Worker",
+   "name": "Form Furniture Solutions Ltd",
+   "town": "Manchester",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "GEORGE ON RYE LIMITED|RYE|Skilled Worker",
+   "name": "George on Rye Limited",
+   "town": "Rye",
+   "county": "East Sussex",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "GIR GROUP LTD|LONDON|Skilled Worker",
+   "name": "GIR Group Ltd",
+   "town": "London",
+   "county": "-- Select --",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "GSR UK PRODUCTIONS LIMITED|SHEPPERTON|Skilled Worker",
+   "name": "GSR UK Productions Limited",
+   "town": "Shepperton",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "HCL(HOLISTIC CARE) LTD|MARITIME WAY, CHATHAM|Skilled Worker",
+   "name": "HCL(Holistic Care) Ltd",
+   "town": "Maritime Way, Chatham",
+   "county": "Kent",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "HD YORK LTD|YORK|Skilled Worker",
+   "name": "HD York Ltd",
+   "town": "York",
+   "county": "North Yorkshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "HONEYWELL AEROSPACE UK CO LIMITED|REDDITCH|Global Business Mobility: Senior or Specialist Worker",
+   "name": "Honeywell Aerospace UK Co Limited",
+   "town": "Redditch",
+   "county": "",
+   "route": "Global Business Mobility: Senior or Specialist Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "HONEYWELL AEROSPACE UK CO LIMITED|REDDITCH|Skilled Worker",
+   "name": "Honeywell Aerospace UK Co Limited",
+   "town": "Redditch",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "HOWARTHS HR AND EMPLOYMENT LAW LIMITED|CLECKHEATON|Skilled Worker",
+   "name": "Howarths HR and Employment Law Limited",
+   "town": "Cleckheaton",
+   "county": "West Yorkshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ISQUARE TECH SOLUTIONS LTD|DARTFORD|Skilled Worker",
+   "name": "Isquare Tech Solutions Ltd",
+   "town": "Dartford",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "LILIES CARE LIMITED|CLYDEBANK|Skilled Worker",
+   "name": "Lilies Care Limited",
+   "town": "Clydebank",
+   "county": "Scotland",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "LNS FOOD LIMITED|PETERBOROUGH|Skilled Worker",
+   "name": "LNS FOOD LIMITED",
+   "town": "Peterborough",
+   "county": "Cambridgeshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "LONGSTONE PARTNERS LLP|LONDON|Skilled Worker",
+   "name": "Longstone Partners LLP",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "LUXURIOUS PERSONAL CARE LTD|WARE|Skilled Worker",
+   "name": "Luxurious Personal Care LTD",
+   "town": "Ware",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "MACMILLAN SPIRITS CO LTD T/A BENBECULA DISTILLERY|GRAMSDALE|Skilled Worker",
+   "name": "MACMILLAN SPIRITS CO LTD T/A Benbecula Distillery",
+   "town": "GRAMSDALE",
+   "county": "ISLE OF BENBECULA",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "MOELAM LIMITED|LONDON|Skilled Worker",
+   "name": "MOELAM LIMITED",
+   "town": "LONDON",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "MSL OILFIELD SERVICES LTD|CHANDLERS FORD|Skilled Worker",
+   "name": "MSL Oilfield Services Ltd",
+   "town": "Chandlers Ford",
+   "county": "Hampshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "NOVATOK LTD|CROYDON|Skilled Worker",
+   "name": "Novatok Ltd",
+   "town": "Croydon",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "PK & BROTHERS LIMITED|BOLTON|Skilled Worker",
+   "name": "PK & BROTHERS LIMITED",
+   "town": "Bolton",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "POWER CABLE SERVICES LIMITED|ROCHESTER|Skilled Worker",
+   "name": "Power Cable Services Limited",
+   "town": "Rochester",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "PRAXIC LIMITED|LONDON|Skilled Worker",
+   "name": "Praxic Limited",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "PTB SCOT LIMITED T/ATHE PLAICE TO BE|PITLOCHRY|Skilled Worker",
+   "name": "PTB SCOT LIMITED t/aThe Plaice To Be",
+   "town": "Pitlochry",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "RAMSHACKLE PRODUCTIONS LIMITED|HASTINGS|Skilled Worker",
+   "name": "Ramshackle Productions Limited",
+   "town": "Hastings",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SAFIRI TICKETS LTD|LONDON|Skilled Worker",
+   "name": "SAFIRI TICKETS LTD",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SAGARD UK MANAGEMENT LTD|LONDON|Skilled Worker",
+   "name": "Sagard UK Management Ltd",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SHAREEF & CO LIMITED|SOLIHULL|Skilled Worker",
+   "name": "Shareef & Co Limited",
+   "town": "Solihull",
+   "county": "West Midlands",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SMITHRIDGE HEALTHCARE LTD|BURTON ON TRENT|Skilled Worker",
+   "name": "Smithridge Healthcare Ltd",
+   "town": "Burton on Trent",
+   "county": "- select -",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SOUTHSPICEFOOD LIMITED|WELLING|Skilled Worker",
+   "name": "Southspicefood Limited",
+   "town": "Welling",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "TRI SCOTLAND LTD|LONGNIDDRY, EAST LOTHIAN|Skilled Worker",
+   "name": "Tri Scotland Ltd",
+   "town": "Longniddry, East Lothian",
+   "county": "Scotland",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "VISSCORE LTD|EDINBURGH|Skilled Worker",
+   "name": "VISSCORE LTD",
+   "town": "Edinburgh",
+   "county": "Edinburgh",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "WAT BUDDHARAM (LONDON)|ROMFORD|Religious Worker",
+   "name": "Wat Buddharam (London)",
+   "town": "ROMFORD",
+   "county": "",
+   "route": "Religious Worker",
+   "rating": "Temporary Worker (A rating)"
+  },
+  {
+   "key": "WAT BUDDHARAM (LONDON)|ROMFORD|Tier 2 Ministers of Religion",
+   "name": "Wat Buddharam (London)",
+   "town": "ROMFORD",
+   "county": "",
+   "route": "Tier 2 Ministers of Religion",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "XORIANT UK LIMITED|NORTH HARROW|Global Business Mobility: Senior or Specialist Worker",
+   "name": "Xoriant UK Limited",
+   "town": "North Harrow",
+   "county": "Middlesex",
+   "route": "Global Business Mobility: Senior or Specialist Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "XORIANT UK LIMITED|NORTH HARROW|Skilled Worker",
+   "name": "Xoriant UK Limited",
+   "town": "North Harrow",
+   "county": "Middlesex",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "XPRESS UK WHOLESALE LTD|COLCHESTER|Skilled Worker",
+   "name": "Xpress UK Wholesale Ltd",
+   "town": "Colchester",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "YMP LIMITED T/A LDM GROUP / LDM DESIGN|MANCHESTER|Skilled Worker",
+   "name": "YMP Limited T/A LDM Group / LDM Design",
+   "town": "Manchester",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "YUNEX LIMITED|CHRISTCHURCH|Global Business Mobility: Senior or Specialist Worker",
+   "name": "Yunex Limited",
+   "town": "Christchurch",
+   "county": "",
+   "route": "Global Business Mobility: Senior or Specialist Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "YUNEX LIMITED|CHRISTCHURCH|Skilled Worker",
+   "name": "Yunex Limited",
+   "town": "Christchurch",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  }
+ ],
+ "removed": [
+  {
+   "key": "AGILE SOFTWARE SYSTEMS LTD|COLCHESTER|Skilled Worker",
+   "name": "AGILE SOFTWARE SYSTEMS LTD",
+   "town": "Colchester",
+   "county": "essex",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "AIDA DAINYTE T/A STAR ANISE RESTAURANT & BAR|BRAMPTON|Skilled Worker",
+   "name": "Aida Dainyte T/A Star Anise Restaurant & Bar",
+   "town": "Brampton",
+   "county": "Cumbria",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ALEXANDRA HOUSE SUPPORT SERVICES LTD|PRESTATYN|Skilled Worker",
+   "name": "Alexandra House Support Services Ltd",
+   "town": "Prestatyn",
+   "county": "Denbighshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "BASSWOOD INVESTMENT (UK) LTD T/A JRC GLOBAL BUFFET|WEMBLEY|Skilled Worker",
+   "name": "Basswood Investment (UK) ltd T/A JRC Global Buffet",
+   "town": "Wembley",
+   "county": "London",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "CAMELOT CASTLE HOTEL|TINTAGEL|Skilled Worker",
+   "name": "Camelot Castle Hotel",
+   "town": "Tintagel",
+   "county": "Cornwall",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "CARE DIRECT SALFORD LTD|ECCLES|Skilled Worker",
+   "name": "Care Direct Salford Ltd",
+   "town": "Eccles",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "CREATIVE EDUCATION TRUST|LONDON|Skilled Worker",
+   "name": "Creative Education Trust",
+   "town": "London",
+   "county": "London",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "DECCAN FUELS LIMITED|MANCHESTER|Skilled Worker",
+   "name": "DECCAN FUELS LIMITED",
+   "town": "Manchester",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ESC CONSULTANCY|HARROW|Skilled Worker",
+   "name": "ESC CONSULTANCY",
+   "town": "HARROW",
+   "county": "LONDON",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "EVERYTHING CONNECTED ENTERPRISES LIMITED|LONDON|Skilled Worker",
+   "name": "Everything Connected Enterprises Limited",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "EXCELCARE HOLDINGS|BROMLEY|Skilled Worker",
+   "name": "Excelcare Holdings",
+   "town": "Bromley",
+   "county": "Kent",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "FIRSTCLASS MANAGERIAL LIMITED|SALFORD QUAYS|Skilled Worker",
+   "name": "Firstclass Managerial Limited",
+   "town": "Salford Quays",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "GEORGE IN RYE LIMITED|RYE|Skilled Worker",
+   "name": "George in Rye Limited",
+   "town": "Rye",
+   "county": "East Sussex",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "GIR SERVICES LTD|LONDON|Skilled Worker",
+   "name": "GIR Services LTD",
+   "town": "London",
+   "county": "-- Select --",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "GLADSTONE GARAGE|YORK|Skilled Worker",
+   "name": "Gladstone Garage",
+   "town": "York",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "GSR UK PRODUCTIONS LIMITED|WINDSOR|Skilled Worker",
+   "name": "GSR UK Productions Limited",
+   "town": "Windsor",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "HCL(HOLISTIC CARE) LTD|CHATHAM|Skilled Worker",
+   "name": "HCL(Holistic Care) Ltd",
+   "town": "Chatham",
+   "county": "Kent",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "HD23 HANOVER DENTAL PRACTICE|NEWCASTLE UNDER LYME|Skilled Worker",
+   "name": "HD23 Hanover Dental Practice",
+   "town": "Newcastle under Lyme",
+   "county": "Staffordshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "HOLMESTERNE FARM CO|NORTHALLERTON|Skilled Worker",
+   "name": "Holmesterne Farm Co",
+   "town": "Northallerton",
+   "county": "North Yorkshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "HONEYWELL AEROSPACE UK CO LIMITED|BRACKNELL|Global Business Mobility: Senior or Specialist Worker",
+   "name": "Honeywell Aerospace UK Co Limited",
+   "town": "Bracknell",
+   "county": "Berkshire",
+   "route": "Global Business Mobility: Senior or Specialist Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "HONEYWELL AEROSPACE UK CO LIMITED|BRACKNELL|Skilled Worker",
+   "name": "Honeywell Aerospace UK Co Limited",
+   "town": "Bracknell",
+   "county": "Berkshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "HUMBER DOORS LTD|EAST YORKSHIRE|Skilled Worker",
+   "name": "Humber Doors Ltd",
+   "town": "East Yorkshire",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ISQUARE TECH SOLUTIONS LTD|MORDEN|Skilled Worker",
+   "name": "Isquare Tech Solutions Ltd",
+   "town": "Morden",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "JOGABRAR LTD|HOUNSLOW|Skilled Worker",
+   "name": "JOGABRAR LTD",
+   "town": "Hounslow",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "JUNGLE DWELLERS LTD|LONDON|Skilled Worker",
+   "name": "JUNGLE DWELLERS LTD",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "KARMA RECRUITMENT LTD|ILFORD|Skilled Worker",
+   "name": "KARMA RECRUITMENT LTD",
+   "town": "Ilford",
+   "county": "Essex",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "KAUF CORP LTD|LONDON|Skilled Worker",
+   "name": "KAUF CORP LTD",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "LUXURIOUS PERSONAL CARE LTD|BIGGLESWADE|Skilled Worker",
+   "name": "Luxurious Personal Care LTD",
+   "town": "Biggleswade",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "MAY29 HEALTHCARE|LONDON|Skilled Worker",
+   "name": "May29 Healthcare",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "MPN 2024 UK LTD|HUDDERSFIELD|Skilled Worker",
+   "name": "MPN 2024 UK LTD",
+   "town": "Huddersfield",
+   "county": "West Yorkshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "MY VERI PERI ONLINE LIMITED|BIRMINGHAM|Skilled Worker",
+   "name": "MY VERI PERI ONLINE LIMITED",
+   "town": "BIRMINGHAM",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "NAVTEJ DYNA SOLUTIONS LIMITED|LONDON|Skilled Worker",
+   "name": "NAVTEJ DYNA SOLUTIONS LIMITED",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "NONWOVENN LIMITED|BRIDGWATER|Skilled Worker",
+   "name": "Nonwovenn Limited",
+   "town": "Bridgwater",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "OM SAI SUPERSTORES LIMITED|FARNBOROUGH|Skilled Worker",
+   "name": "Om Sai Superstores Limited",
+   "town": "Farnborough",
+   "county": "Hampshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "OPTIONS FOR CARE LTD|BIRMINGHAM|Skilled Worker",
+   "name": "Options for Care Ltd",
+   "town": "Birmingham",
+   "county": "West Midlands",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "PAYSTRAX LTD|BRIGHTON|Skilled Worker",
+   "name": "PAYSTRAX LTD",
+   "town": "Brighton",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "PITSA UK LTD|WESTCLIFF-ON-SEA|Skilled Worker",
+   "name": "PITSA UK LTD",
+   "town": "Westcliff-on-Sea",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "PRESTIGE CARE GROUP HOLDINGS LTD|INGLEBY BARWICK|Skilled Worker",
+   "name": "Prestige Care Group Holdings Ltd",
+   "town": "Ingleby Barwick",
+   "county": "Stockton-on-Tees",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "PURE MOMENTS LTD|WOKING|Skilled Worker",
+   "name": "Pure Moments Ltd",
+   "town": "Woking",
+   "county": "Surrey",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "REHBR UK LIMITED|MANCHESTER|Skilled Worker",
+   "name": "REHBR UK LIMITED",
+   "town": "Manchester",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "REYAN TECHNOLOGIES LTD|HOUNSLOW|Skilled Worker",
+   "name": "Reyan Technologies Ltd",
+   "town": "Hounslow",
+   "county": "UK",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SETH HOMES LTD T/AS STONEACRE LODGE CARE HOME|DONCASTER|Skilled Worker",
+   "name": "Seth Homes Ltd T/as Stoneacre Lodge Care Home",
+   "town": "Doncaster",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SMITHRIDGE HEALTHCARE LTD|WOLVERHAMPTON|Skilled Worker",
+   "name": "Smithridge Healthcare Ltd",
+   "town": "Wolverhampton",
+   "county": "- select -",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SNS HEALTHCARE SERVICES LTD|BOLTON|Skilled Worker",
+   "name": "SNS HEALTHCARE SERVICES LTD",
+   "town": "BOLTON",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SUNBURST SERVICES LTD|STOCKTON-ON-TEES|Skilled Worker",
+   "name": "Sunburst Services LTD.",
+   "town": "Stockton-on-Tees",
+   "county": "Durham",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "THE PLACE TO BE|PITLOCHRY|Skilled Worker",
+   "name": "The Place To Be",
+   "town": "Pitlochry",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "TLC HEALTHCARE AND SUPPORT SERVICES LTD|EDINBURGH|Skilled Worker",
+   "name": "TLC Healthcare and Support Services Ltd",
+   "town": "Edinburgh",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "U-BLOX CAMBRIDGE LIMITED|CAMBRIDGE|Skilled Worker",
+   "name": "u-Blox Cambridge Limited",
+   "town": "Cambridge",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "VISSCORE LTD|LONDON|Skilled Worker",
+   "name": "VISSCORE LTD",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "WAT BUDDHARAM (LONDON)|LONDON|Religious Worker",
+   "name": "Wat Buddharam (London)",
+   "town": "London",
+   "county": "",
+   "route": "Religious Worker",
+   "rating": "Temporary Worker (A rating)"
+  },
+  {
+   "key": "WAT BUDDHARAM (LONDON)|LONDON|Tier 2 Ministers of Religion",
+   "name": "Wat Buddharam (London)",
+   "town": "London",
+   "county": "",
+   "route": "Tier 2 Ministers of Religion",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "WHITEHEART HEALTH CARE LTD|SALISBURY|Skilled Worker",
+   "name": "Whiteheart Health Care Ltd",
+   "town": "Salisbury",
+   "county": "Wiltshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "XORIANT UK LIMITED|LONDON|Global Business Mobility: Senior or Specialist Worker",
+   "name": "Xoriant UK Limited",
+   "town": "London",
+   "county": "",
+   "route": "Global Business Mobility: Senior or Specialist Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "XORIANT UK LIMITED|LONDON|Skilled Worker",
+   "name": "Xoriant UK Limited",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "XPRESS UK WHOLESALE LTD|ROMFORD|Skilled Worker",
+   "name": "Xpress UK Wholesale Ltd",
+   "town": "Romford",
+   "county": "Essex",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "YB HAIR STUDIO LTD|SELBY|Skilled Worker",
+   "name": "YB HAIR STUDIO LTD",
+   "town": "Selby",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "YMP LIMITED T/A LDM GROUP / LDM DESIGN|ASHTON-UNDER-LYNE|Skilled Worker",
+   "name": "YMP Limited T/A LDM Group / LDM Design",
+   "town": "Ashton-Under-Lyne",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "YUNEX LIMITED|POOLE|Global Business Mobility: Senior or Specialist Worker",
+   "name": "Yunex Limited",
+   "town": "Poole",
+   "county": "Dorset",
+   "route": "Global Business Mobility: Senior or Specialist Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "YUNEX LIMITED|POOLE|Skilled Worker",
+   "name": "Yunex Limited",
+   "town": "Poole",
+   "county": "Dorset",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "YUSRA BAKES LIMITED|LONDON|Skilled Worker",
+   "name": "YUSRA BAKES LIMITED",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  }
+ ],
+ "rating_changed": [
+  {
+   "key": "H&S DIRECT SOLUTIONS LIMITED|PRESTON|Skilled Worker",
+   "name": "H&S DIRECT SOLUTIONS LIMITED",
+   "town": "Preston",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)",
+   "rating_before": "Worker (B rating)"
+  },
+  {
+   "key": "UNITY HOMES LIMITED|SALFORD|Skilled Worker",
+   "name": "Unity Homes Limited",
+   "town": "Salford",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (B rating)",
+   "rating_before": "Worker (A rating)"
+  }
+ ]
+}
