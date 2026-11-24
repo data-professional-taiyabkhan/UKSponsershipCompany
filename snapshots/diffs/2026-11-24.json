@@ -1,0 +1,1122 @@
+{
+ "date": "2026-11-24",
+ "previous_date": "2026-11-23",
+ "counts": {
+  "added": 58,
+  "removed": 77,
+  "rating_changed": 3
+ },
+ "added": [
+  {
+   "key": "A.BERRY SUPPORT SERVICES LIMITED|DENBY|Skilled Worker",
+   "name": "A.BERRY SUPPORT SERVICES LIMITED",
+   "town": "Denby",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ADNFC FINANCIAL CONSULTANTS LTD|YORK|Skilled Worker",
+   "name": "ADNFC Financial Consultants Ltd",
+   "town": "York",
+   "county": "North Yorkshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ALPHA SAFETY SOLUTIONS LIMITED|MILTON KEYNES|Skilled Worker",
+   "name": "ALPHA SAFETY SOLUTIONS LIMITED",
+   "town": "Milton Keynes",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "APPLIED STUDIO ARCHITECTURE LTD|LONDON|Skilled Worker",
+   "name": "Applied Studio Architecture Ltd.",
+   "town": "London",
+   "county": "London",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ARAS LEGAL LTD|LONDON|Skilled Worker",
+   "name": "Aras Legal Ltd",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ARD PAVING STONES LIMITED|SURREY|Skilled Worker",
+   "name": "ARD PAVING STONES LIMITED",
+   "town": "SURREY",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "AUDI MOTORSPORT TECHNOLOGY CENTRE UK LIMITED|BICESTER|Skilled Worker",
+   "name": "Audi Motorsport Technology Centre UK Limited",
+   "town": "Bicester",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "AVONDALE MOTORS NE LIMITED|MANCHESTER|Skilled Worker",
+   "name": "AVONDALE MOTORS NE LIMITED",
+   "town": "MANCHESTER",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "BGF 4 LIMITED T/A GERMAN DONER KEBAB|WALSALL|Skilled Worker",
+   "name": "BGF 4 Limited T/a German Doner Kebab",
+   "town": "Walsall",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "BIRCHFIELD HOTEL LTD|CATFORD|Skilled Worker",
+   "name": "BIRCHFIELD HOTEL LTD",
+   "town": "catford",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "BOYAS BARBERS|FRASERBURGH|Skilled Worker",
+   "name": "BOYAS BARBERS",
+   "town": "FRASERBURGH",
+   "county": "ABERDEENSHIRE",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "CARBON REWIND|WATFORD|Skilled Worker",
+   "name": "Carbon Rewind",
+   "town": "Watford",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "CHIPPERFIELD ENTERTAINMENTS LTD|ANSTEY|Creative Worker",
+   "name": "Chipperfield Entertainments Ltd",
+   "town": "Anstey",
+   "county": "Leicestershire",
+   "route": "Creative Worker",
+   "rating": "Temporary Worker (A rating)"
+  },
+  {
+   "key": "CITYATHLETE GYM LTD|BIRMINGHAM|Skilled Worker",
+   "name": "CityAthlete Gym Ltd",
+   "town": "Birmingham",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "CREATIVE EDUCATION TRUST|MILTON KEYENS|Skilled Worker",
+   "name": "Creative Education Trust",
+   "town": "Milton Keyens",
+   "county": "Buckinghamshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "CROWN VIEW CARE LTD|IPSWICH|Skilled Worker",
+   "name": "Crown View Care Ltd",
+   "town": "Ipswich",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "D&I FOODS LTD|HOUNSLOW|Skilled Worker",
+   "name": "D&I FOODS LTD",
+   "town": "Hounslow",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "DISARONNO INTERNATIONAL UK LIMITED|LONDON|Global Business Mobility: Senior or Specialist Worker",
+   "name": "Disaronno International UK Limited",
+   "town": "London",
+   "county": "",
+   "route": "Global Business Mobility: Senior or Specialist Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ECHOSEC SYSTEMS UK LTD|ALTRINCHAM|Global Business Mobility: Senior or Specialist Worker",
+   "name": "Echosec Systems UK Ltd",
+   "town": "Altrincham",
+   "county": "Cheshire",
+   "route": "Global Business Mobility: Senior or Specialist Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ECHOSEC SYSTEMS UK LTD|ALTRINCHAM|Skilled Worker",
+   "name": "Echosec Systems UK Ltd",
+   "town": "Altrincham",
+   "county": "Cheshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "EDYN DEVELOPMENT STUDIO LIMITED|LONDON|Global Business Mobility: Senior or Specialist Worker",
+   "name": "Edyn Development Studio Limited",
+   "town": "London",
+   "county": "",
+   "route": "Global Business Mobility: Senior or Specialist Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "EXONEA HEALTH LTD|WOLVERHAMPTON|Skilled Worker",
+   "name": "Exonea Health Ltd",
+   "town": "Wolverhampton",
+   "county": "West Midlands",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "GRADY DENTAL LTD|GLASGOW|Skilled Worker",
+   "name": "Grady dental ltd",
+   "town": "Glasgow",
+   "county": "Sc",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "GREENLIGHT ENGINEERING LTD|LEATHERHEAD|Skilled Worker",
+   "name": "Greenlight Engineering Ltd",
+   "town": "Leatherhead",
+   "county": "Surrey",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "GULZAR HALAL POULTRY LTD|SHREWSBURY|Skilled Worker",
+   "name": "GULZAR HALAL POULTRY LTD",
+   "town": "Shrewsbury",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "HANK ZARIHS ASSOCIATES LIMITED|BROXBOURNE|Skilled Worker",
+   "name": "HANK ZARIHS ASSOCIATES LIMITED",
+   "town": "Broxbourne",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "HAYDON POWER LTD|STOURBRIDGE|Skilled Worker",
+   "name": "Haydon Power Ltd",
+   "town": "Stourbridge",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "HENLEY RETAIL GROUP LIMITED|WEST BROMWICH|Skilled Worker",
+   "name": "Henley Retail Group Limited",
+   "town": "West Bromwich",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "HSCALE LIMITED|LONDON|Skilled Worker",
+   "name": "HSCALE Limited",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "INTERPOWER INDUCTION LTD|WALSALL|Skilled Worker",
+   "name": "Interpower Induction Ltd",
+   "town": "Walsall",
+   "county": "West Midlands",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "KINGDOM LAW LTD|RAINHAM|Skilled Worker",
+   "name": "KINGDOM LAW LTD",
+   "town": "Rainham",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "KM DEVELOPMENT CONSULTANCY LIMITED|LONDON|Skilled Worker",
+   "name": "KM Development Consultancy Limited",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "LIGHT TONE STUDIOS LTD|CANTERBURY|Skilled Worker",
+   "name": "Light Tone Studios Ltd",
+   "town": "Canterbury",
+   "county": "Kent",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "LUP EVENTS LTD TRADING AS LUP|LONDON|Skilled Worker",
+   "name": "Lup Events Ltd trading as Lup",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "MEDIGAS UK LTD|GREATER MANCHESTER|Skilled Worker",
+   "name": "MediGAS UK Ltd",
+   "town": "Greater Manchester",
+   "county": "England",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "MEER & MEER LTD|GREENFORD|Skilled Worker",
+   "name": "Meer & Meer Ltd",
+   "town": "Greenford",
+   "county": "Middlesex",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "MOVEMENT COLLECTIVE LTD|LONDON|Skilled Worker",
+   "name": "Movement Collective Ltd",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "MSH HEALTHCARE LTD|ULVERSTON|Skilled Worker",
+   "name": "MSH Healthcare LTD",
+   "town": "Ulverston",
+   "county": "Cumbria",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ND DUNDEE LTD|ARBROATH|Skilled Worker",
+   "name": "ND DUNDEE LTD",
+   "town": "Arbroath",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ODICCI LIMITED|LONDON|Skilled Worker",
+   "name": "Odicci Limited",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ORLA HOMES LTD T/A ST BRELADES RETIREMENT HOMES|HERNE BAY, KENT|Skilled Worker",
+   "name": "Orla Homes Ltd t/a St Brelades Retirement Homes",
+   "town": "Herne Bay, Kent",
+   "county": "Kent",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "OXFORD HUMAN CAPITAL INCORPORATED LTD|FARINGDON|Skilled Worker",
+   "name": "Oxford Human Capital Incorporated Ltd",
+   "town": "Faringdon",
+   "county": "Oxfordshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "PREEMINENCE ADVISORS UK LIMITED|LONDON|Skilled Worker",
+   "name": "Preeminence Advisors UK Limited",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "PULSE INSURANCE LIMITED|BRACKLEY|Skilled Worker",
+   "name": "Pulse Insurance Limited",
+   "town": "Brackley",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "PYNNACLE PROPERTIES LIMITED|STANMORE|Skilled Worker",
+   "name": "Pynnacle Properties Limited",
+   "town": "Stanmore",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SAANNIE MEDICAL SERVICES LTD|WREXHAM|Skilled Worker",
+   "name": "Saannie Medical Services Ltd",
+   "town": "Wrexham",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SAFEDALE LTD|LONDON|Skilled Worker",
+   "name": "Safedale Ltd",
+   "town": "LONDON",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SELECTIVE CARE|FAREHAM|Skilled Worker",
+   "name": "Selective Care",
+   "town": "Fareham",
+   "county": "Hampshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SHASTA FOODS LIMITED T/A SUBWAY|KENT|Skilled Worker",
+   "name": "SHASTA FOODS LIMITED t/a SUBWAY",
+   "town": "Kent",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SYNDESI ONE LIMITED|LONDON|Skilled Worker",
+   "name": "Syndesi One Limited",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "TAFAH LTD|LEICESTER|Skilled Worker",
+   "name": "TAFAH LTD",
+   "town": "Leicester",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "TAPESTRY VENTURE CAPITAL LLP|LONDON|Skilled Worker",
+   "name": "Tapestry Venture Capital LLP",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "TECHOUSE UK LTD|BLANTYRE|Skilled Worker",
+   "name": "Techouse UK Ltd",
+   "town": "Blantyre",
+   "county": "South Lanarkshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "THE INFORMATION COMMISSION|MANCHESTER|Skilled Worker",
+   "name": "The Information Commission",
+   "town": "Manchester",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "TOPFRAME ENGINEERING LTD|MAGHERAFELT|Skilled Worker",
+   "name": "Topframe Engineering Ltd",
+   "town": "Magherafelt",
+   "county": "Co.Derry",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "TREVALLY CAPITAL LTD|LONDON|Skilled Worker",
+   "name": "Trevally Capital Ltd",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "TURBO POWER SYSTEMS LIMITED|GATESHEAD|Global Business Mobility: Senior or Specialist Worker",
+   "name": "Turbo Power Systems Limited",
+   "town": "Gateshead",
+   "county": "Tyne and Wear",
+   "route": "Global Business Mobility: Senior or Specialist Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "TURBO POWER SYSTEMS LIMITED|GATESHEAD|Skilled Worker",
+   "name": "Turbo Power Systems Limited",
+   "town": "Gateshead",
+   "county": "Tyne and Wear",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  }
+ ],
+ "removed": [
+  {
+   "key": "A PARK VIEW HOTEL|WOLVERHAMPTON|Skilled Worker",
+   "name": "A Park View Hotel",
+   "town": "Wolverhampton",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "A&R NATIONAL STREET|MUSSULBURGH|Skilled Worker",
+   "name": "A&R National Street",
+   "town": "Mussulburgh",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ADHAM HOTELS LTD|HUDDERSFIELD|Skilled Worker",
+   "name": "ADHAM HOTELS LTD",
+   "town": "Huddersfield",
+   "county": "Yorkshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ADORE DESIGNS YORKSHIRE LIMITED|BATLEY|Skilled Worker",
+   "name": "ADORE DESIGNS YORKSHIRE LIMITED",
+   "town": "Batley",
+   "county": "West Yorkshire,",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "AEEIW LTD|RAINHAM|Global Business Mobility: Graduate Trainee",
+   "name": "AEEIW Ltd",
+   "town": "RAINHAM",
+   "county": "",
+   "route": "Global Business Mobility: Graduate Trainee",
+   "rating": "Temporary Worker (A rating)"
+  },
+  {
+   "key": "AEEIW LTD|RAINHAM|Skilled Worker",
+   "name": "AEEIW Ltd",
+   "town": "RAINHAM",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "AIDEM TECHNOLOGIES LTD|LONDON|Global Business Mobility: Senior or Specialist Worker",
+   "name": "AIDEM TECHNOLOGIES LTD",
+   "town": "London",
+   "county": "",
+   "route": "Global Business Mobility: Senior or Specialist Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "AIDEM TECHNOLOGIES LTD|LONDON|Skilled Worker",
+   "name": "AIDEM TECHNOLOGIES LTD",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ALC SUPPORTED LIVING|LIVERPOOL|Skilled Worker",
+   "name": "ALC Supported Living",
+   "town": "LIVERPOOL",
+   "county": "-1",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ALL CUISINES CATERING LTD T/A KOKU SHI|KIRKCALDY|Skilled Worker",
+   "name": "ALL CUISINES CATERING LTD t/a KOKU SHI",
+   "town": "Kirkcaldy",
+   "county": "Scotland",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ANDREW NOLAN MORTGAGES LTD|ALTRINCHAM|Skilled Worker",
+   "name": "Andrew Nolan Mortgages Ltd",
+   "town": "Altrincham",
+   "county": "Cheshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ARKDEAL LTD T/A KASPA'S DESSERTS|BRACKNELL|Skilled Worker",
+   "name": "Arkdeal Ltd T/A Kaspa's Desserts",
+   "town": "Bracknell",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "BAYWATER HEALTHCARE|CREWE|Skilled Worker",
+   "name": "Baywater Healthcare",
+   "town": "Crewe",
+   "county": "Cheshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "BIRCHFIELD HOTEL LTD|WESTON SUPRE MARE|Skilled Worker",
+   "name": "BIRCHFIELD HOTEL LTD",
+   "town": "Weston supre mare",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "BOING INTERNATIONAL TEA LIMITED|BIRMINGHAM|Skilled Worker",
+   "name": "BOING INTERNATIONAL TEA LIMITED",
+   "town": "Birmingham",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "BRADCARE LTD|SWADLINCOTE|Skilled Worker",
+   "name": "Bradcare Ltd",
+   "town": "Swadlincote",
+   "county": "Derbyshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "BURAK TRANSPORT & SOLUTIONS LTD|DONCASTER|Skilled Worker",
+   "name": "Burak Transport & Solutions Ltd",
+   "town": "Doncaster",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "BUTCHIES LTD|LONDON|Skilled Worker",
+   "name": "Butchies LTD",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "CARBON REWIND|WOKINGHAM|Skilled Worker",
+   "name": "Carbon Rewind",
+   "town": "Wokingham",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "CARE WITH PRIDE LEICESTER LTD|LEICESTER|Skilled Worker",
+   "name": "Care With Pride Leicester Ltd",
+   "town": "Leicester",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "CDMX TACOS LTD|LONDON|Skilled Worker",
+   "name": "CDMX Tacos Ltd",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "CG PARTNERSHIP|SOUTHAMPTON|Skilled Worker",
+   "name": "CG Partnership",
+   "town": "Southampton",
+   "county": "Hampshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "CHARLES CHIPPERFIELD & ASSOCIATES|ALBURY|Creative Worker",
+   "name": "charles chipperfield & Associates",
+   "town": "albury",
+   "county": "ware, herts",
+   "route": "Creative Worker",
+   "rating": "Temporary Worker (A rating)"
+  },
+  {
+   "key": "CHESTERFIELD K LIMITED|LONDON|Skilled Worker",
+   "name": "Chesterfield K Limited",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "CLOVER CARE SCOTLAND LTD|EAST LOTHIAN|Skilled Worker",
+   "name": "Clover Care Scotland Ltd",
+   "town": "East Lothian",
+   "county": "Scotland",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "CREATIVE EDUCATION TRUST|LONDON|Skilled Worker",
+   "name": "Creative Education Trust",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "D&I FOODS LTD|SLOUGH|Skilled Worker",
+   "name": "D&I FOODS LTD",
+   "town": "SLOUGH",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "DIMENSION ABBAS BUILDERS LTD|LEICESTER|Skilled Worker",
+   "name": "DIMENSION ABBAS BUILDERS LTD",
+   "town": "Leicester",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ECHOSEC SYSTEMS UK LTD|CARDIFF|Global Business Mobility: Senior or Specialist Worker",
+   "name": "Echosec Systems UK Ltd",
+   "town": "Cardiff",
+   "county": "",
+   "route": "Global Business Mobility: Senior or Specialist Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "ECHOSEC SYSTEMS UK LTD|CARDIFF|Skilled Worker",
+   "name": "Echosec Systems UK Ltd",
+   "town": "Cardiff",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "EXONEA HEALTH LTD|DUDLEY|Skilled Worker",
+   "name": "Exonea Health Ltd",
+   "town": "Dudley",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "EZONECORNWALL LIMITED|ST AUSTELL|Skilled Worker",
+   "name": "EZONECORNWALL LIMITED",
+   "town": "St Austell",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "FUTURISTIC TECHNOLOGIES LTD|HOUNSLOW|Scale-up",
+   "name": "Futuristic Technologies Ltd",
+   "town": "Hounslow",
+   "county": "Middlesex",
+   "route": "Scale-up",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "FUTURISTIC TECHNOLOGIES LTD|HOUNSLOW|Skilled Worker",
+   "name": "Futuristic Technologies Ltd",
+   "town": "Hounslow",
+   "county": "Middlesex",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "GREENLIGHT ENGINEERING LTD|MERTON|Skilled Worker",
+   "name": "Greenlight Engineering Ltd",
+   "town": "Merton",
+   "county": "London",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "GULZAR HALAL POULTRY LTD|BIRMINGHAM|Skilled Worker",
+   "name": "GULZAR HALAL POULTRY LTD",
+   "town": "Birmingham",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "HAKKA VILLAGE LIMITED|LONDON|Skilled Worker",
+   "name": "HAKKA VILLAGE LIMITED",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "INFORMATION COMMISSIONERS OFFICE|WILMSLOW|Skilled Worker",
+   "name": "Information Commissioners Office",
+   "town": "Wilmslow",
+   "county": "Cheshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "KINGDOM LAW LTD|ILFORD|Skilled Worker",
+   "name": "KINGDOM LAW LTD",
+   "town": "Ilford",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "MADIOX LIMITED|BOLTON|Skilled Worker",
+   "name": "MADIOX LIMITED",
+   "town": "Bolton",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "MEER & MEER LTD|NORTHOLT|Skilled Worker",
+   "name": "Meer & Meer Ltd",
+   "town": "Northolt",
+   "county": "Middlesex",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "MINERVA UK SERVICES LIMITED|LONDON|Skilled Worker",
+   "name": "Minerva UK Services Limited",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "MSH HEALTHCARE LTD|BARROW IN FURNESS|Skilled Worker",
+   "name": "MSH Healthcare LTD",
+   "town": "barrow in furness",
+   "county": "cumbria",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "NEW COLLEGE WORCESTER|WORCESTER|Skilled Worker",
+   "name": "New College Worcester",
+   "town": "Worcester",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "NEWCASTLE BUILDING CONSTRUCTION LIMITED|NEWCASTLE UPON TYNE|Skilled Worker",
+   "name": "NEWCASTLE BUILDING CONSTRUCTION LIMITED",
+   "town": "NEWCASTLE UPON TYNE",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "NUMI SCAN (DERBY) LTD|DERBY|Skilled Worker",
+   "name": "NUMI SCAN (DERBY) LTD",
+   "town": "DERBY",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "OAKFIELD PHARMA LTD|ST HELENS|Skilled Worker",
+   "name": "Oakfield Pharma Ltd",
+   "town": "St Helens",
+   "county": "Merseyside",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "PARKER LLOYD LEISURE LIMITED|LONDON|Skilled Worker",
+   "name": "Parker Lloyd Leisure Limited",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "PAYDOCK LTD|LONDON|Skilled Worker",
+   "name": "Paydock Ltd",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "PENGE AND POPLAR LTD|LONDON|Skilled Worker",
+   "name": "Penge And Poplar Ltd",
+   "town": "LONDON",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "PEOPLE PANELS LTD|BASINGSTOKE|Skilled Worker",
+   "name": "People Panels Ltd",
+   "town": "Basingstoke",
+   "county": "Hampshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "PIRSOOK LIMITED|SALE|Skilled Worker",
+   "name": "Pirsook Limited",
+   "town": "Sale",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "POSEIDON SECURITY SPECIAL SERVICES LTD|DARTFORD|Skilled Worker",
+   "name": "POSEIDON SECURITY SPECIAL SERVICES LTD",
+   "town": "Dartford",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "POWERPLUS GROUP (PPG) LTD|BINGHAM|Skilled Worker",
+   "name": "Powerplus Group (PPG) Ltd",
+   "town": "Bingham",
+   "county": "Nottinghamshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "RED CONSTRUCTION LTD|SOLIHULL|Skilled Worker",
+   "name": "Red Construction Ltd",
+   "town": "Solihull",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "REGENCY LEISURE LIMITED|BIRMINGHAM|Skilled Worker",
+   "name": "REGENCY LEISURE LIMITED",
+   "town": "BIRMINGHAM",
+   "county": "WEST MIDLANDS",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "REGIS SPICE LTD|BIRMINGHAM|Skilled Worker",
+   "name": "REGIS SPICE LTD",
+   "town": "Birmingham",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "RILEY & RILEY T/A THE QUEENS HEAD|FARNHAM|Skilled Worker",
+   "name": "Riley & Riley T/A The Queens Head",
+   "town": "Farnham",
+   "county": "Surrey",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SAFEDALE LTD|ENFIELD|Skilled Worker",
+   "name": "Safedale Ltd",
+   "town": "ENFIELD",
+   "county": "MIDDLESEX",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SEURE GLAZE UK HOME IMPROVEMENTS LTD T/A SECURE GLAZE GROUP UK|BIRMINGHAM|Skilled Worker",
+   "name": "Seure Glaze UK Home Improvements LTD T/A Secure Glaze Group UK",
+   "town": "Birmingham",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SPICE 21 LTD T/A YORK TANDOORI|YORK|Skilled Worker",
+   "name": "Spice 21 Ltd t/a York Tandoori",
+   "town": "York",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "STAR PRIVATE HIRE STAFFS LTD|STOKE-ON-TRENT|Skilled Worker",
+   "name": "Star Private Hire Staffs Ltd",
+   "town": "Stoke-on-Trent",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "STATUS NETWORK SOLUTIONS LTD|HILLINGTON|Skilled Worker",
+   "name": "Status Network Solutions Ltd",
+   "town": "Hillington",
+   "county": "Renfrewshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SURMAH CO LTD|RUGBY|Skilled Worker",
+   "name": "Surmah Co LTD",
+   "town": "Rugby",
+   "county": "Warwickshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "SYNDESI ONE LIMITED|ILFORD|Skilled Worker",
+   "name": "Syndesi One Limited",
+   "town": "Ilford",
+   "county": "Essex",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "THE COTSWOLD NURSING HOME CO LTD|TETBURY|Skilled Worker",
+   "name": "The Cotswold Nursing Home Co Ltd",
+   "town": "Tetbury",
+   "county": "Gloucestershire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "TURBO POWER SYSTEMS|GATESHEAD|Global Business Mobility: Senior or Specialist Worker",
+   "name": "Turbo Power Systems",
+   "town": "Gateshead",
+   "county": "Tyne and Wear",
+   "route": "Global Business Mobility: Senior or Specialist Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "TURBO POWER SYSTEMS|GATESHEAD|Skilled Worker",
+   "name": "Turbo Power Systems",
+   "town": "Gateshead",
+   "county": "Tyne and Wear",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "UK GOOD DEALS LIMITED T/A BLACK|PRESTON|Skilled Worker",
+   "name": "UK Good Deals Limited T/A Black",
+   "town": "Preston",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "UK LAUNCH SERVICES LIMITED|LONDON|Skilled Worker",
+   "name": "UK Launch Services Limited",
+   "town": "London",
+   "county": "Select One",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "UMAR AND USMAN LIMITED|LONDON|Skilled Worker",
+   "name": "Umar And Usman Limited",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "UNI BARGAIN LIMITED|HALIFAX|Skilled Worker",
+   "name": "UNI BARGAIN LIMITED",
+   "town": "HALIFAX",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "UNIMETALS SERVICES LIMITED|LONDON|Global Business Mobility: Senior or Specialist Worker",
+   "name": "Unimetals Services Limited",
+   "town": "London",
+   "county": "",
+   "route": "Global Business Mobility: Senior or Specialist Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "UNIMETALS SERVICES LIMITED|LONDON|Skilled Worker",
+   "name": "Unimetals Services Limited",
+   "town": "London",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "UNIVERSAL BARGAIN LTD|SALFORD|Skilled Worker",
+   "name": "UNIVERSAL BARGAIN LTD",
+   "town": "Salford",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "VILLAGE SECURITY SOLUTIONS LIMITED|MILTON KEYNES|Skilled Worker",
+   "name": "Village Security Solutions Limited",
+   "town": "Milton Keynes",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  },
+  {
+   "key": "WESTWOOD JOINERY & CONSTRUCTION LIMITED|SHEFFIELD|Skilled Worker",
+   "name": "WESTWOOD JOINERY & CONSTRUCTION LIMITED",
+   "town": "Sheffield",
+   "county": "South Yorkshire",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)"
+  }
+ ],
+ "rating_changed": [
+  {
+   "key": "BRAND GLOBAL LTD|LEICESTER|Skilled Worker",
+   "name": "BRAND GLOBAL LTD",
+   "town": "LEICESTER",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (B rating)",
+   "rating_before": "Worker (A rating)"
+  },
+  {
+   "key": "THE MODALITY PARTNERSHIP|BIRMINGHAM|Skilled Worker",
+   "name": "The Modality Partnership",
+   "town": "Birmingham",
+   "county": "",
+   "route": "Skilled Worker",
+   "rating": "Worker (B rating)",
+   "rating_before": "Worker (A rating)"
+  },
+  {
+   "key": "WESTBROOK HEALTHCARE LLP (T/A WESTBROOK CARE)|CATERHAM|Skilled Worker",
+   "name": "Westbrook Healthcare LLP (T/A Westbrook Care)",
+   "town": "Caterham",
+   "county": "Surrey",
+   "route": "Skilled Worker",
+   "rating": "Worker (A rating)",
+   "rating_before": "Worker (B rating)"
+  }
+ ]
+}
